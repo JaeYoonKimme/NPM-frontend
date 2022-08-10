@@ -31,7 +31,9 @@ function Header() {
               <NavDropdown.Item>
                 <Link to="/profile">마이페이지</Link>
               </NavDropdown.Item>
-              <NavDropdown.Item>로그아웃</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/login">로그인</Link>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Col>
