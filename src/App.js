@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<GoalList/>} />
-        <Route path="/detail" element={<GoalDetail/>} />
+        <Route path="/detail/:id" element={<GoalDetail/>} />
         <Route path="/profile" element={<Mypage/>} />
       </Routes>
     </>
