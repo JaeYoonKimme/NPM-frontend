@@ -3,7 +3,7 @@ import { Container, Col, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import profile from "../../img/profile.png";
 
-function Header() {
+function Header({ isLogin }) {
   return (
     <Navbar bg="yellow" variant="light">
       <Container>
@@ -32,7 +32,7 @@ function Header() {
                 <Link to="/profile">마이페이지</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
-                <Link to="/login">로그인</Link>
+                <Link to="/login">{isLogin ? '로그아웃' : '로그인'}</Link>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
