@@ -9,7 +9,7 @@ function GoogleLogin({
 
     useScript('https://accounts.google.com/gsi/client', () => {
         window.google.accounts.id.initialize({
-            client_id: "",
+            client_id: process.env.REACT_APP_CLIENT_ID,
             callback: onGoogleSignIn,
         });
 
