@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function RoutineCreate() {
   const [title, setTitle] = useState("");
@@ -8,6 +9,11 @@ function RoutineCreate() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [maxCount, setMaxCount] = useState(0);
+
+  const navigate = useNavigate();
+
+  // 임시 user id
+  const uid = "87654321"
 
   const onChange = (event) => {
     const name = event.target.name;
@@ -28,7 +34,7 @@ function RoutineCreate() {
   const onSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(process.env.REACT_APP_API_URL+"/api/routine/", {
+      .post("http://"+process.env.REACT_APP_API_URL+"/api/routine/", {
         title: title,
         max_people_number: maxPeople,
         now_people_number: 1,
@@ -38,7 +44,29 @@ function RoutineCreate() {
         max_count: maxCount,
         status: "active",
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res)
+        alert("생성되었습니다.")
+        navigate("/detail/" + title, {
+          state: {
+            title: title,
+            max_people_number: maxPeople,
+            now_people_number: 1,
+            description: description,
+            start_date: startDate,
+            end_date: endDate,
+            max_count: maxCount,
+            status: "actice",
+          }
+        });
+          axios.post("http://"+process.env.REACT_APP_API_URL+"/api/user_routine/", {
+            user_id: uid,
+            routine_id: 123,
+            now_count: 0,
+            max_count: maxCount,
+            is_host: "True"
+          })
+      })
       .catch((err) => console.log(err));
   };
 

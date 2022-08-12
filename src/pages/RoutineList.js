@@ -8,7 +8,7 @@ function RoutineList() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL+"/api/routine/")
+      .get("http://"+process.env.REACT_APP_API_URL+"/api/routine/")
       .then((res) => {
         setRoutines([...res.data]);
       })
