@@ -13,7 +13,8 @@ function RoutineCreate() {
   const navigate = useNavigate();
 
   // 임시 user id
-  const uid = "87654321"
+  // const uid = "87654321"
+  const uid = "12345678"
 
   const onChange = (event) => {
     const name = event.target.name;
@@ -46,9 +47,11 @@ function RoutineCreate() {
       })
       .then((res) => {
         console.log(res)
+        console.log(res.data.id)
         alert("생성되었습니다.")
         navigate("/detail/" + title, {
           state: {
+            id: res.data.id,
             title: title,
             max_people_number: maxPeople,
             now_people_number: 1,
@@ -56,12 +59,12 @@ function RoutineCreate() {
             start_date: startDate,
             end_date: endDate,
             max_count: maxCount,
-            status: "actice",
+            status: "active",
           }
         });
           axios.post("http://"+process.env.REACT_APP_API_URL+"/api/user_routine/", {
             user_id: uid,
-            routine_id: 123,
+            routine_id: res.data.id,
             now_count: 0,
             max_count: maxCount,
             is_host: "True"

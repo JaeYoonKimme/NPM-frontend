@@ -11,6 +11,7 @@ function RoutineContent({ routine }) {
         start_date: routine.start_date,
         end_date: routine.end_date,
         description: routine.description,
+        max_count: routine.max_count
       },
     });
   };
