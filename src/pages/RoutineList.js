@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RoutineContent from "../components/RoutineContent/RoutineContent";
+import RoutineCreate from "../components/RoutineCreate/RoutineCreate";
 import axios from "axios";
 import Modal from "react-modal";
 
 function RoutineList() {
   const [routines, setRoutines] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     axios

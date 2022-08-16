@@ -11,19 +11,21 @@ function RoutineContent({ routine }) {
         start_date: routine.start_date,
         end_date: routine.end_date,
         description: routine.description,
-        max_count: routine.max_count
+        max_count: routine.max_count,
       },
     });
   };
   return (
-    <li>
+    <div style={{ margin: "1.2rem 0" }}>
       <div onClick={move}>{routine.title}</div>
       {/* <Link to='/detail/'>{routine.title}</Link> */}
-      <br />
-      {routine.start_date} ~ {routine.end_date}
-      <br />
-      {routine.now_people_number}/{routine.max_people_number}
-    </li>
+      <div>
+        {routine.start_date} ~ {routine.end_date}
+      </div>
+      <div>
+        {routine.now_people_number}/{routine.max_people_number}
+      </div>
+    </div>
   );
 }
 
