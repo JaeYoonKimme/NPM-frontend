@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
-function RoutineCreate({setModalIsOpen}) {
+function RoutineCreate() {
   const [title, setTitle] = useState("");
-  const [maxPeople, setMaxPeople] = useState(0);
+  const [maxPeople, setMaxPeople] = useState(1);
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -54,6 +53,11 @@ function RoutineCreate({setModalIsOpen}) {
       />
     );
   };
+  const navigate = useNavigate();
+
+  // 임시 user id
+  // const uid = "87654321"
+  const uid = "12345678"
 
   const onChange = (event) => {
     const name = event.target.name;
@@ -70,9 +74,8 @@ function RoutineCreate({setModalIsOpen}) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    
     axios
-      .post("http://127.0.0.1:8000/api/routine/", {
+      .post("http://"+process.env.REACT_APP_API_URL+"/api/routine/", {
         title: title,
         max_people_number: maxPeople,
         now_people_number: 1,
@@ -83,9 +86,29 @@ function RoutineCreate({setModalIsOpen}) {
         status: "active",
       })
       .then((res) => {
-        alert("생성 완료")
-        setModalIsOpen(false)
         console.log(res)
+        console.log(res.data.id)
+        alert("생성되었습니다.")
+        navigate("/detail/" + title, {
+          state: {
+            id: res.data.id,
+            title: title,
+            max_people_number: maxPeople,
+            now_people_number: 1,
+            description: description,
+            start_date: startDate,
+            end_date: endDate,
+            max_count: maxCount,
+            status: "active",
+          }
+        });
+          axios.post("http://"+process.env.REACT_APP_API_URL+"/api/user_routine/", {
+            user_id: uid,
+            routine_id: res.data.id,
+            now_count: 0,
+            max_count: maxCount,
+            is_host: "True"
+          })
       })
       .catch((err) => console.log(err));
   };
@@ -130,10 +153,7 @@ function RoutineCreate({setModalIsOpen}) {
         <label>종료 날짜</label>
         <EndSet/>
       </div>
-        
-      <button type="submit" >생성하기</button>
-
-     
+      <button type="submit">생성하기</button>
     </form>
   );
 }
