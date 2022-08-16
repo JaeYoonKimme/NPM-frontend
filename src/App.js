@@ -5,7 +5,7 @@ import RoutineList from './pages/RoutineList';
 import RoutineDetail from './pages/RoutineDetail';
 import Mypage from './pages/Mypage';
 import Login from './pages/Login'
-import RoutineCreate from './pages/RoutineCreate';
+// import RoutineCreate from './pages/RoutineCreate';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -18,7 +18,6 @@ function App() {
         <Route path="/detail/:id" element={<RoutineDetail/>} />
         <Route path="/profile" element={<Mypage/>} />
         <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-        <Route path="/create" element={<RoutineCreate/>} />
       </Routes>
     </>
   );

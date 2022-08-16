@@ -10,9 +10,7 @@ function Header({ isLogin }) {
         <Col lg="4"></Col>
         <Col lg="4">
           <Nav className="justify-content-around">
-            <Nav.Link className="" href="/">
-              Erooming
-            </Nav.Link>
+            <Link to="/">Erooming</Link>
           </Nav>
         </Col>
         <Col lg="4">
