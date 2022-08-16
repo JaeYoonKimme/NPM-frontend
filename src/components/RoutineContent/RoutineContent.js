@@ -20,7 +20,7 @@ function RoutineContent({ routine }) {
       <div onClick={move}>{routine.title}</div>
       {/* <Link to='/detail/'>{routine.title}</Link> */}
       <br />
-      {routine.start_date} ~ {routine.start_date}
+      {routine.start_date} ~ {routine.end_date}
       <br />
       {routine.now_people_number}/{routine.max_people_number}
     </li>

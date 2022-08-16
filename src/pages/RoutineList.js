@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RoutineContent from "../components/RoutineContent/RoutineContent";
 import axios from "axios";
+import Modal from "react-modal";
 
 function RoutineList() {
   const [routines, setRoutines] = useState([]);
@@ -27,9 +28,10 @@ function RoutineList() {
           <RoutineContent key={idx} routine={routine} />
         ))}
       </div>
-      <button>
-        <Link to="/create">목표 만들기</Link>
-      </button>
+      <button onClick={() => setModalIsOpen(true)}>목표 만들기</button>
+      <Modal isOpen={modalIsOpen} ariaHideApp={false}>
+        <RoutineCreate setModalIsOpen={setModalIsOpen} />
+      </Modal>
     </>
   );
 }
