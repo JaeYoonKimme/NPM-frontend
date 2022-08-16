@@ -1,15 +1,59 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 function RoutineCreate({setModalIsOpen}) {
   const [title, setTitle] = useState("");
-  const [maxPeople, setMaxPeople] = useState(null);
+  const [maxPeople, setMaxPeople] = useState(0);
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [maxCount, setMaxCount] = useState(0);
+
+  const Convert=(date,delimiter='-')=>{
+    const year = date.getFullYear();
+    const month = leftPad(date.getMonth() + 1);
+    const day = leftPad(date.getDate());
+
+    return [year, month, day].join(delimiter);
+  }
+
+  const leftPad = (value)=> {
+    if (value >= 10) {
+        return value;
+    }
+    return `0${value}`;
+  }
+
+  const StartSet = () => {
+    return (
+      <DatePicker 
+      dateFormat = "yyyy-MM-dd"
+      selected={startDate} 
+      onChange={
+        date =>setStartDate(date) 
+      } 
+      minDate = {new Date()}
+      />
+    );
+  };
+
+
+  const EndSet = () => {
+     return (
+      <DatePicker 
+      dateFormat = "yyyy-MM-dd"
+      selected={endDate} 
+      onChange={(date) => {
+        // console.log("date", date)
+        setEndDate(date)}}
+      minDate= {startDate}
+      />
+    );
+  };
 
   const onChange = (event) => {
     const name = event.target.name;
@@ -20,11 +64,8 @@ function RoutineCreate({setModalIsOpen}) {
       setMaxPeople(value);
     } else if (name === "desc") {
       setDescription(value);
-    } else if (name === "start") {
-      setStartDate(value);
-    } else if (name === "end") {
-      setEndDate(value);
-    }
+    } 
+
   };
 
   const onSubmit = (event) => {
@@ -36,8 +77,8 @@ function RoutineCreate({setModalIsOpen}) {
         max_people_number: maxPeople,
         now_people_number: 1,
         description: description,
-        start_date: startDate,
-        end_date: endDate,
+        start_date: Convert(startDate),
+        end_date: Convert(endDate),
         max_count: maxCount,
         status: "active",
       })
@@ -83,24 +124,13 @@ function RoutineCreate({setModalIsOpen}) {
       </div>
       <div>
         <label>시작 날짜</label>
-        <input
-          name="start"
-          value={startDate}
-          onChange={onChange}
-          placeholder="시작 날짜"
-          required
-        />
+        <StartSet/>
       </div>
       <div>
         <label>종료 날짜</label>
-        <input
-          name="end"
-          value={endDate}
-          onChange={onChange}
-          placeholder="종료 날짜"
-          required
-        />
+        <EndSet/>
       </div>
+        
       <button type="submit" >생성하기</button>
 
      
