@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function RoutineCreate() {
+
+function RoutineCreate({setModalIsOpen}) {
   const [title, setTitle] = useState("");
-  const [maxPeople, setMaxPeople] = useState(1);
+  const [maxPeople, setMaxPeople] = useState(null);
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -27,8 +29,9 @@ function RoutineCreate() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    
     axios
-      .post(process.env.REACT_APP_API_URL+"/api/routine/", {
+      .post("http://127.0.0.1:8000/api/routine/", {
         title: title,
         max_people_number: maxPeople,
         now_people_number: 1,
@@ -38,7 +41,11 @@ function RoutineCreate() {
         max_count: maxCount,
         status: "active",
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        alert("생성 완료")
+        setModalIsOpen(false)
+        console.log(res)
+      })
       .catch((err) => console.log(err));
   };
 
@@ -94,7 +101,9 @@ function RoutineCreate() {
           required
         />
       </div>
-      <button type="submit">생성하기</button>
+      <button type="submit" >생성하기</button>
+
+     
     </form>
   );
 }

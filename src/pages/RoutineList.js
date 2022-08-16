@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RoutineContent from "../components/RoutineContent/RoutineContent";
+import RoutineCreate from "../components/RoutineCreate/RoutineCreate";
 import axios from "axios";
+import Modal from 'react-modal'; 
 
 function RoutineList() {
   const [routines, setRoutines] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL+"/api/routine/")
+      .get("http://127.0.0.1:3000/api/routine/")
       .then((res) => {
         setRoutines([...res.data]);
       })
@@ -23,11 +26,14 @@ function RoutineList() {
           <RoutineContent key={idx} routine={routine} />
         ))}
       </div>
-      <button>
-        <Link to="/create">목표 만들기</Link>
-      </button>
+
+      <button onClick={()=> setModalIsOpen(true)}>목표 만들기</button>
+      <Modal isOpen={modalIsOpen} >
+      <RoutineCreate setModalIsOpen={setModalIsOpen}/> 
+      </Modal>
     </>
   );
 }
 
 export default RoutineList;
+
