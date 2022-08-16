@@ -75,9 +75,9 @@ function RoutineDetail() {
       <h1>Detail</h1>
       <h2>{title}</h2>
       <p>{des}</p>
-      <p>
+      <div>
         {start_date} ~ {end_date}
-      </p>
+      </div>
       {isShown && <button onClick={onClick}>참가하기</button>}
       {deleteShow && <button onClick={onDelete}>삭제하기</button>}
       {editShow && <button onClick={onEdit}>수정하기</button>}
