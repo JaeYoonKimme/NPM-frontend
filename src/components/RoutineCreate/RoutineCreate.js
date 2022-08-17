@@ -155,6 +155,7 @@ function RoutineCreate({setModalIsOpen}) {
         <EndSet />
       </div>
       <button type="submit">생성하기</button>
+      <button onClick={ () => setModalIsOpen(false)}>취소하기</button>
     </form>
   );
 }
