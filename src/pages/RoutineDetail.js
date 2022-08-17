@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 
 function RoutineDetail() {
-  const [isShown, setIsShown] = useState(false);
-  const [deleteShow, setDeleteShow] = useState(false);
-  const [editShow, setEditShow] = useState(false);
+  const [isEnterShow, setIsEnterShow] = useState(false);
+  const [isDeleteShow, setIsDeleteShow] = useState(false);
+  const [isEditShow, setIsEditShow] = useState(false);
+  const [userRoutine, setUserRoutine] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
+
   const id = location.state.id;
   const title = location.state.title;
   const start_date = location.state.start_date;
   const end_date = location.state.end_date;
   const des = location.state.description;
   const max_count = location.state.max_count;
+
 
   // 임시 user id
   const uid = "12345678";
@@ -33,14 +38,16 @@ function RoutineDetail() {
       .then((res) => {
         console.log(res);
         if (res.data === "") {
-          setIsShown(true);
+          setIsEnterShow(true);
         } else if (res.data.is_host === true) {
-          setDeleteShow(true);
+          setIsDeleteShow(true);
+        } else if (res.data !== "") {
+          setUserRoutine(res.data);
         }
       });
   }, []);
 
-  const onClick = () => {
+  const onClickEnter = () => {
     axios
       .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         user_id: uid,
@@ -55,10 +62,10 @@ function RoutineDetail() {
       .catch((err) => {
         console.log(err);
       });
-    setIsShown(false);
+    setIsEnterShow(false);
   };
 
-  const onDelete = () => {
+  const onClickDelete = () => {
     axios
       .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
         status: "deleted",
@@ -69,7 +76,8 @@ function RoutineDetail() {
       })
       .catch((err) => console.log(err));
   };
-  const onEdit = () => {};
+  const onClickEdit = () => {};
+
   return (
     <>
       <h1>Detail</h1>
@@ -78,9 +86,12 @@ function RoutineDetail() {
       <div>
         {start_date} ~ {end_date}
       </div>
-      {isShown && <button onClick={onClick}>참가하기</button>}
-      {deleteShow && <button onClick={onDelete}>삭제하기</button>}
-      {editShow && <button onClick={onEdit}>수정하기</button>}
+      {
+        userRoutine !== null && <PersonalRoutine userRoutine={userRoutine} />
+      }
+      {isEnterShow && <button onClick={onClickEnter}>참가하기</button>}
+      {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
+      {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
     </>
   );
 }
