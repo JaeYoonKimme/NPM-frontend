@@ -30,7 +30,7 @@ function RoutineDetail() {
   // 임시 user id
   const uid = "12345678";
   // const uid = "87654321";
-  
+
   useEffect(() => {
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
@@ -44,7 +44,7 @@ function RoutineDetail() {
         console.log(now_people_number);
         console.log(max_people_number);
         if (res.data === "" && now_people_number < max_people_number) {
-          console.log("참가 버튼 open")
+          console.log("참가 버튼 open");
           setIsEnterShow(true);
         } else if (res.data.is_host === true) {
           setIsDeleteShow(true);
@@ -74,7 +74,7 @@ function RoutineDetail() {
     setIsEnterShow(false);
     axios
       .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
-        now_people_number: now_people_number+1,
+        now_people_number: now_people_number + 1,
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -126,10 +126,10 @@ function RoutineDetail() {
       .catch((err) => console.log(err));
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(editTitle, editDes);
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(editTitle, editDes);
+  // };
 
   const changeTitle = (e) => {
     setEditTitle(e.target.value);
@@ -141,26 +141,84 @@ function RoutineDetail() {
 
   return (
     <>
-      <h1>Detail</h1>
-      {editInput ? (
-        <form onSubmit={onSubmit}>
-          <div>
-            <h1>이름</h1>
+      {/* // <form onSubmit={onSubmit}>
+        //   <div>
+        //     <h1>이름</h1>
+        //     <input type="text" value={editTitle} onChange={changeTitle}></input>
+        //   </div>
+        //   <div>
+        //     <h3>내용</h3>
+        //     <input type="text" value={editDes} onChange={changeDes}></input>
+        //   </div>
+        // </form> */}
+      <>
+        {editInput ? (
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            <div>제목</div>
             <input type="text" value={editTitle} onChange={changeTitle}></input>
           </div>
-          <div>
-            <h3>내용</h3>
-            <input type="text" value={editDes} onChange={changeDes}></input>
+        ) : (
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            {title}
           </div>
-        </form>
-      ) : (
-        <>
-          <h2>{title}</h2>
-          <p>{des}</p>
-        </>
-      )}
-      <div>
-        {start_date} ~ {end_date}
+        )}
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "10px",
+              width: "28em",
+              height: "9em",
+              border: "1px solid black",
+              margin: "1em",
+            }}
+          >
+            <div style={{ fontSize: "36px", fontWeight: "bold" }}>D-13</div>
+            <div>
+              {start_date} ~ {end_date}
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "10px",
+              width: "28em",
+              height: "9em",
+              border: "1px solid black",
+              margin: "1em",
+            }}
+          >
+            {editInput ? (
+              <div>
+                <div>설명</div>
+                <input type="text" value={editDes} onChange={changeDes}></input>
+              </div>
+            ) : (
+              <div>{des}</div>
+            )}
+          </div>
+        </div>
+      </>
+      <div style={{textAlign:'center'}}>
+        {now_people_number} / {max_people_number}
       </div>
       {userRoutine !== null && <PersonalRoutine userRoutine={userRoutine} />}
 
