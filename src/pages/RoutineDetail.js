@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 
@@ -24,6 +25,7 @@ function RoutineDetail() {
   const des = location.state.description;
   const max_count = location.state.max_count;
   const status = location.state.stauts;
+  const [addNowPeople, setAddNowPeople] = useState(now_people_number);
   const [editTitle, setEditTitle] = useState(title);
   const [editDes, setEditDes] = useState(des);
 
@@ -41,7 +43,10 @@ function RoutineDetail() {
       })
       .then((res) => {
         console.log(res);
-        if (res.data === "") {
+        console.log(now_people_number);
+        console.log(max_people_number);
+        if (res.data === "" && now_people_number < max_people_number) {
+          console.log("참가 버튼 open");
           setIsEnterShow(true);
         } else if (res.data.is_host === true) {
           setIsDeleteShow(true);
@@ -51,9 +56,10 @@ function RoutineDetail() {
           setUserRoutine(res.data);
         }
       });
-  }, []);
+  }, [addNowPeople]);
 
   const onClickEnter = () => {
+    // POST user_routine data
     axios
       .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         user_id: uid,
@@ -68,10 +74,23 @@ function RoutineDetail() {
       .catch((err) => {
         console.log(err);
       });
+    
+    // 참가하기 버튼 없애고 현재 인원 +1
     setIsEnterShow(false);
+    alert("참가 완료");
+    setAddNowPeople(addNowPeople + 1);
+
+    // PATCH routine data (now_people_number)
+    axios
+      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+        now_people_number: now_people_number + 1,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const onClickDelete = () => {
+    // PATCH routine data (status)
     axios
       .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
         status: "deleted",
@@ -92,6 +111,7 @@ function RoutineDetail() {
   const onClickComplete = () => {
     setIsCompleteShow(false);
     setIsEditShow(true);
+    // PATCH routine data (title, description)
     axios
       .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
         title: editTitle,
@@ -99,6 +119,7 @@ function RoutineDetail() {
       })
       .then(() => {
         alert("저장되었습니다.");
+        // 변경사항 저장한 뒤 새로고침
         navigate("/detail/" + editTitle, {
           state: {
             id: id,
@@ -112,13 +133,9 @@ function RoutineDetail() {
             status: status,
           },
         });
+        setEditInput(false);
       })
       .catch((err) => console.log(err));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(editTitle, editDes);
   };
 
   const changeTitle = (e) => {
@@ -131,30 +148,87 @@ function RoutineDetail() {
 
   return (
     <>
-      <h1>Detail</h1>
       {editInput ? (
-        <form onSubmit={onSubmit}>
-          <div>
-            <h1>이름</h1>
-            <input type="text" value={editTitle} onChange={changeTitle}></input>
-          </div>
-          <div>
-            <h3>내용</h3>
-            <input type="text" value={editDes} onChange={changeDes}></input>
-          </div>
-        </form>
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "24px",
+            fontWeight: "bold",
+          }}
+        >
+          <div>제목</div>
+          <input type="text" value={editTitle} onChange={changeTitle}></input>
+        </div>
       ) : (
-        <>
-          <h2>{title}</h2>
-          <p>{des}</p>
-        </>
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "24px",
+            fontWeight: "bold",
+          }}
+        >
+          {title}
+        </div>
       )}
-      <div>
-        {start_date} ~ {end_date}
-      </div>
-      {userRoutine !== null && <PersonalRoutine userRoutine={userRoutine} />}
 
-      {isEnterShow && <button onClick={onClickEnter}>참가하기</button>}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "10px",
+            width: "28em",
+            height: "9em",
+            border: "1px solid black",
+            margin: "1em",
+          }}
+        >
+          <div style={{ fontSize: "36px", fontWeight: "bold" }}>D-13</div>
+          <div>
+            {start_date} ~ {end_date}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "10px",
+            width: "28em",
+            height: "9em",
+            border: "1px solid black",
+            margin: "1em",
+          }}
+        >
+          {editInput ? (
+            <div>
+              <div>설명</div>
+              <input type="text" value={editDes} onChange={changeDes}></input>
+            </div>
+          ) : (
+            <div>{des}</div>
+          )}
+        </div>
+      </div>
+      <div style={{ textAlign: "center" }}>
+        {addNowPeople} / {max_people_number}
+      </div>
+      {userRoutine !== null ? (
+        <PersonalRoutine userRoutine={userRoutine} />
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            height: "9em",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {isEnterShow && <Button onClick={onClickEnter}>참가하기</Button>}
+        </div>
+      )}
       {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
       {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
       {isCompleteShow && <button onClick={onClickComplete}>저장하기</button>}
