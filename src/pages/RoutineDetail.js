@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 
-function RoutineDetail() {
-  const [isShown, setIsShown] = useState(false);
-  const [deleteShow, setDeleteShow] = useState(true);
-  const [editShow, setEditShow] = useState(true);
-  const [completeShow, setComplete] = useState(false);
+function RoutineDetail() { 
+  const [isEnterShow, setIsEnterShow] = useState(false);
+  const [isDeleteShow, setIsDeleteShow] = useState(false);
+  const [isEditShow, setIsEditShow] = useState(false);
+  const [isCompleteShow, setIsCompleteShow] = useState(false);
+  const [userRoutine, setUserRoutine] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const id = location.state.id;
   const title = location.state.title;
   const max_people_number = location.state.max_people_number;
@@ -22,6 +25,7 @@ function RoutineDetail() {
   const status = location.state.stauts;
   const [editTitle, setEditTitle] = useState(title);
   const [editDes, setEditDes] = useState(des);
+
   // 임시 user id
   const uid = "12345678";
   // const uid = "87654321";
@@ -39,15 +43,18 @@ function RoutineDetail() {
       .then((res) => {
         console.log(res);
         if (res.data === "") {
-          setIsShown(true);
+          setIsEnterShow(true);
         } else if (res.data.is_host === false) {
-          setDeleteShow(false);
-          setEditShow(false);
+          setIsDeleteShow(false);
+          setIsEditShow(false)
+        }
+        if (res.data !== "") {
+          setUserRoutine(res.data);
         }
       });
   }, []);
 
-  const onClick = () => {
+  const onClickEnter = () => {
     axios
       .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         user_id: uid,
@@ -62,10 +69,10 @@ function RoutineDetail() {
       .catch((err) => {
         console.log(err);
       });
-    setIsShown(false);
+    setIsEnterShow(false);
   };
 
-  const onDelete = () => {
+  const onClickDelete = () => {
     axios
       .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
         status: "deleted",
@@ -76,14 +83,15 @@ function RoutineDetail() {
       })
       .catch((err) => console.log(err));
   };
+
   const onEdit = () => {
-    setEditShow(false);
-    setComplete(true);
+    setIsEditShow(false);
+    setIsCompleteShow(true);
   };
 
   const onComplete = () => {
-    setComplete(false);
-    setEditShow(true);
+    setIsCompleteShow(false);
+    setIsEditShow(true);
     axios
     .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
       title : editTitle,
@@ -121,10 +129,13 @@ function RoutineDetail() {
   const changeDes = (e) => {
     setEditDes(e.target.value);
   };
+
+  const onClickEdit = () => {};
+
   return (
     <>
       <h1>Detail</h1>
-      {editShow ? (
+      {isEditShow ? (
         <>
           <h2>{title}</h2>
           <p>{des}</p>
@@ -144,10 +155,13 @@ function RoutineDetail() {
       <div>
         {start_date} ~ {end_date}
       </div>
-      {isShown && <button onClick={onClick}>참가하기</button>}
-      {deleteShow && <button onClick={onDelete}>삭제하기</button>}
-      {editShow && <button onClick={onEdit}>수정하기</button>}
-      {completeShow && <button onClick={onComplete}>저장하기</button>}
+      {
+        userRoutine !== null && <PersonalRoutine userRoutine={userRoutine} />
+      }
+      {isEnterShow && <button onClick={onClick}>참가하기</button>}
+      {isDeleteShow && <button onClick={onDelete}>삭제하기</button>}
+      {isEditShow && <button onClick={onEdit}>수정하기</button>}
+      {isCompleteShow && <button onClick={onComplete}>저장하기</button>}
     </>
   );
 }
