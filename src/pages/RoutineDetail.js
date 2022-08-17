@@ -30,7 +30,7 @@ function RoutineDetail() {
   // 임시 user id
   const uid = "12345678";
   // const uid = "87654321";
-
+  
   useEffect(() => {
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
@@ -41,7 +41,10 @@ function RoutineDetail() {
       })
       .then((res) => {
         console.log(res);
-        if (res.data === "") {
+        console.log(now_people_number);
+        console.log(max_people_number);
+        if (res.data === "" && now_people_number < max_people_number) {
+          console.log("참가 버튼 open")
           setIsEnterShow(true);
         } else if (res.data.is_host === true) {
           setIsDeleteShow(true);
@@ -69,6 +72,12 @@ function RoutineDetail() {
         console.log(err);
       });
     setIsEnterShow(false);
+    axios
+      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+        now_people_number: now_people_number+1,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const onClickDelete = () => {
@@ -112,6 +121,7 @@ function RoutineDetail() {
             status: status,
           },
         });
+        setEditInput(false);
       })
       .catch((err) => console.log(err));
   };
