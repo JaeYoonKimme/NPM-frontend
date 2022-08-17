@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 
-function RoutineDetail() { 
+function RoutineDetail() {
   const [isEnterShow, setIsEnterShow] = useState(false);
   const [isDeleteShow, setIsDeleteShow] = useState(false);
   const [isEditShow, setIsEditShow] = useState(false);
+  const [editInput, setEditInput] = useState(false);
   const [isCompleteShow, setIsCompleteShow] = useState(false);
   const [userRoutine, setUserRoutine] = useState(null);
 
@@ -31,8 +32,6 @@ function RoutineDetail() {
   // const uid = "87654321";
 
   useEffect(() => {
-    console.log("user_id", uid);
-    console.log("routine_id", id);
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         params: {
@@ -44,9 +43,9 @@ function RoutineDetail() {
         console.log(res);
         if (res.data === "") {
           setIsEnterShow(true);
-        } else if (res.data.is_host === false) {
-          setIsDeleteShow(false);
-          setIsEditShow(false)
+        } else if (res.data.is_host === true) {
+          setIsDeleteShow(true);
+          setIsEditShow(true);
         }
         if (res.data !== "") {
           setUserRoutine(res.data);
@@ -84,43 +83,43 @@ function RoutineDetail() {
       .catch((err) => console.log(err));
   };
 
-  const onEdit = () => {
+  const onClickEdit = () => {
     setIsEditShow(false);
+    setEditInput(true);
     setIsCompleteShow(true);
   };
 
-  const onComplete = () => {
+  const onClickComplete = () => {
     setIsCompleteShow(false);
     setIsEditShow(true);
     axios
-    .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
-      title : editTitle,
-      description : editDes,
-    })
-    .then(() => {
-      alert("저장되었습니다.");
-      navigate("/detail/"+editTitle, {
-        state:{
-          id:id,
-          title:editTitle,
-          max_people_number:max_people_number,
-          now_people_number: now_people_number,
-          description: editDes,
-          start_date: start_date,
-          end_date: end_date,
-          max_count: max_count,
-          status: status
-        }
-      });
-    })
-    .catch((err) => console.log(err));
+      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+        title: editTitle,
+        description: editDes,
+      })
+      .then(() => {
+        alert("저장되었습니다.");
+        navigate("/detail/" + editTitle, {
+          state: {
+            id: id,
+            title: editTitle,
+            max_people_number: max_people_number,
+            now_people_number: now_people_number,
+            description: editDes,
+            start_date: start_date,
+            end_date: end_date,
+            max_count: max_count,
+            status: status,
+          },
+        });
+      })
+      .catch((err) => console.log(err));
   };
-
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(editTitle, editDes);
-  }
+  };
 
   const changeTitle = (e) => {
     setEditTitle(e.target.value);
@@ -130,17 +129,10 @@ function RoutineDetail() {
     setEditDes(e.target.value);
   };
 
-  const onClickEdit = () => {};
-
   return (
     <>
       <h1>Detail</h1>
-      {isEditShow ? (
-        <>
-          <h2>{title}</h2>
-          <p>{des}</p>
-        </>
-      ) : (
+      {editInput ? (
         <form onSubmit={onSubmit}>
           <div>
             <h1>이름</h1>
@@ -151,17 +143,21 @@ function RoutineDetail() {
             <input type="text" value={editDes} onChange={changeDes}></input>
           </div>
         </form>
+      ) : (
+        <>
+          <h2>{title}</h2>
+          <p>{des}</p>
+        </>
       )}
       <div>
         {start_date} ~ {end_date}
       </div>
-      {
-        userRoutine !== null && <PersonalRoutine userRoutine={userRoutine} />
-      }
-      {isEnterShow && <button onClick={onClick}>참가하기</button>}
-      {isDeleteShow && <button onClick={onDelete}>삭제하기</button>}
-      {isEditShow && <button onClick={onEdit}>수정하기</button>}
-      {isCompleteShow && <button onClick={onComplete}>저장하기</button>}
+      {userRoutine !== null && <PersonalRoutine userRoutine={userRoutine} />}
+
+      {isEnterShow && <button onClick={onClickEnter}>참가하기</button>}
+      {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
+      {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
+      {isCompleteShow && <button onClick={onClickComplete}>저장하기</button>}
     </>
   );
 }
