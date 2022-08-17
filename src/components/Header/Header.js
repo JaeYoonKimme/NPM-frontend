@@ -15,24 +15,28 @@ function Header({ isLogin }) {
         </Col>
         <Col lg="4">
           <Nav className="justify-content-end">
-            <NavDropdown
-              title={
-                <img
-                  src={profile}
-                  alt=""
-                  style={{ borderRadius: "50%" }}
-                  width="30"
-                  height="30"
-                />
-              }
-            >
-              <NavDropdown.Item>
-                <Link to="/profile">마이페이지</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/login">{isLogin ? '로그아웃' : '로그인'}</Link>
-              </NavDropdown.Item>
-            </NavDropdown>
+            {isLogin ? (
+              <NavDropdown
+                title={
+                  <img
+                    src={profile}
+                    alt=""
+                    style={{ borderRadius: "50%" }}
+                    width="30"
+                    height="30"
+                  />
+                }
+              >
+                <NavDropdown.Item>
+                  <Link to="/profile">마이페이지</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  로그아웃
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Link to="/login">로그인</Link>
+            )}
           </Nav>
         </Col>
       </Container>
