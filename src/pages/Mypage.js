@@ -16,29 +16,13 @@ function Mypage({isLogin, info}) {
 
   useEffect(() => {
     axios
-      .get("http://"+process.env.REACT_APP_API_URL+"/api/routine/", {
-        params: {
-          status: "active"
-        },
+      .get("http://"+process.env.REACT_APP_API_URL+`/api/user_routine_list/${info.pk}`, {
       })
       .then((res) => {
         setRoutines([...res.data]);
       })
       .catch((err) => console.log(err));
   }, []);
-
-  const uid = 12345678
-
-  useEffect(() => {
-    axios
-      .get("http://" + process.env.REACT_APP_API_URL + `/api/user_routine_list/${uid}`
-      )
-      .then((res)=>{
-         setRoutines([...res.data]);
-      })
-      .catch((err) => console.log(err));
-    }, []);
-
   return (
     <Tabs
       defaultActiveKey="progress"
@@ -48,18 +32,22 @@ function Mypage({isLogin, info}) {
       <Tab eventKey="progress" title="진행중인 목표">
         <Container>
           <Row xs={1} md={2} className="g-4">
-              {routines.map((routine, idx) => (
-                  <UserRoutine key={idx} routine={routine} />
-                ))}
+              {routines.map((routine, idx) => {
+                if(routine.status === "active") {
+                  return <UserRoutine key={idx} routine={routine} />
+                }
+              })}
           </Row>
         </Container>
       </Tab>
       <Tab eventKey="completed" title="완료된 목표">
         <Container>
           <Row xs={1} md={2} className="g-4">
-              {routines.map((routine, idx) => (
-                  <UserRoutine key={idx} routine={routine} />
-                ))}
+              {routines.map((routine, idx) => {
+                if(routine.status === "completed") {
+                  return <UserRoutine key={idx} routine={routine} />
+                }
+              })}
           </Row>
         </Container>
       </Tab>

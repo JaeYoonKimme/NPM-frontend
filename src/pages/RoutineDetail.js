@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
+import { Convert } from "../components/RoutineCreate/RoutineCreate";
+import createMaxCount from "../components/RoutineCreate/CreateMaxCount";
 
-function RoutineDetail() {
+function RoutineDetail({info}) {
   const [isEnterShow, setIsEnterShow] = useState(false);
   const [isDeleteShow, setIsDeleteShow] = useState(false);
   const [isEditShow, setIsEditShow] = useState(false);
@@ -25,19 +27,16 @@ function RoutineDetail() {
   const des = location.state.description;
   const max_count = location.state.max_count;
   const status = location.state.stauts;
+  const dDay = createMaxCount(Convert(new Date()), end_date)
   const [addNowPeople, setAddNowPeople] = useState(now_people_number);
   const [editTitle, setEditTitle] = useState(title);
   const [editDes, setEditDes] = useState(des);
-
-  // 임시 user id
-  const uid = "12345678";
-  // const uid = "87654321";
 
   useEffect(() => {
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         params: {
-          user_id: uid,
+          user_id: info.pk,
           routine_id: id,
         },
       })
@@ -62,7 +61,7 @@ function RoutineDetail() {
     // POST user_routine data
     axios
       .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
-        user_id: uid,
+        user_id: info.pk,
         routine_id: id,
         now_count: 0,
         max_count: max_count,
@@ -185,7 +184,7 @@ function RoutineDetail() {
             margin: "1em",
           }}
         >
-          <div style={{ fontSize: "36px", fontWeight: "bold" }}>D-13</div>
+          <div style={{ fontSize: "36px", fontWeight: "bold" }}>{`D-${dDay}`}</div>
           <div>
             {start_date} ~ {end_date}
           </div>
