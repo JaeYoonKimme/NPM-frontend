@@ -20,10 +20,11 @@ function App() {
   }, []);
 
   const [info, setInfo] = useState({
+    pk: '',
     username: '',
     email: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
   });
 
   useEffect(() => {
@@ -40,9 +41,8 @@ function App() {
       <Routes>
         <Route path="/" element={<RoutineList/>} />
         <Route path="/detail/:id" element={<RoutineDetail/>} />
-        <Route path="/profile" element={<Mypage info={info}/>} />
+        <Route path="/profile" element={<Mypage isLogin={isLogin} info={info}/>} />
         <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-        <Route path="/logout" element={<Logout setIsLogin={setIsLogin}/>} />
       </Routes>
     </>
   );
