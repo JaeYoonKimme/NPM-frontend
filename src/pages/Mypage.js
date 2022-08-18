@@ -1,6 +1,7 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import React, { useState, useEffect, useNavigate } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 import UserRoutine from "../components/UserRoutine/UserRoutine";
 import axios from "axios";
 import Container from 'react-bootstrap/Container';
