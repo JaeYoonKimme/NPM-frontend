@@ -91,7 +91,7 @@ function PersonalRoutine({ userRoutine }) {
             </div>
             <div style={{ width: "4rem", margin: "5rem auto 1rem" }}>
               <div>
-                {nowCount} / {userRoutine.max_count}
+                {nowCount} / {max_count}
               </div>
             </div>
           </div>
