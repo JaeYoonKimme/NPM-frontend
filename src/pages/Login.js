@@ -6,7 +6,6 @@ import { gapi } from 'gapi-script';
 
 function Login({ isLogin, setIsLogin }) {
   const client_id = process.env.REACT_APP_CLIENT_ID;
-
   const navigate = useNavigate();
   const onGoogleSignIn = async res => {
     const result = await postLoginToken(res.accessToken, setIsLogin);
