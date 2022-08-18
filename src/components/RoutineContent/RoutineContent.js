@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Card, Button, Col, Row } from 'react-bootstrap';
 
 function RoutineContent({ routine }) {
   const navigate = useNavigate();
@@ -19,16 +20,25 @@ function RoutineContent({ routine }) {
     });
   };
   return (
-    <div style={{ margin: "1.2rem 0" }}>
-      <div onClick={move}>{routine.title}</div>
-      {/* <Link to='/detail/'>{routine.title}</Link> */}
-      <div>
-        {routine.start_date} ~ {routine.end_date}
-      </div>
-      <div>
-        {routine.now_people_number}/{routine.max_people_number}
-      </div>
-    </div>
+    <>
+      <Card style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title>{routine.title}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{routine.start_date} ~ {routine.end_date}</Card.Subtitle>
+          <Card.Text>
+            {routine.description}
+          </Card.Text>
+          <Row>
+            <Col xs={7}>
+              참여 인원 : {routine.now_people_number} / {routine.max_people_number}
+            </Col>
+            <Col xs={5}>
+              <Button variant="outline-info" onClick={move}>참여하기</Button>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </>
   );
 }
 

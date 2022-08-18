@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Form, Modal, Button, ModalFooter, Col, Row, Toast } from 'react-bootstrap';
 import createMaxCount from "./CreateMaxCount.js"
-
 
 function RoutineCreate({setModalIsOpen}) {
   const [title, setTitle] = useState("");
@@ -33,12 +33,12 @@ function RoutineCreate({setModalIsOpen}) {
 
   const StartSet = () => {
     return (
-      <DatePicker
-        dateFormat="yyyy-MM-dd"
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        minDate={new Date()}
-      />
+        <DatePicker
+          dateFormat="yyyy-MM-dd"
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          minDate={new Date()}
+        />
     );
   };
 
@@ -89,7 +89,7 @@ function RoutineCreate({setModalIsOpen}) {
       .then((res) => {
         console.log(res);
         console.log(res.data.id);
-        alert("생성되었습니다.");
+        alert("목표 생성이 완료되었습니다!");
         navigate("/detail/" + title, {
           state: {
             id: res.data.id,
@@ -119,48 +119,56 @@ function RoutineCreate({setModalIsOpen}) {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        <label>제목</label>
-        <input
-          name="title"
-          value={title}
-          onChange={onChange}
-          placeholder="제목"
-          required
-        />
-      </div>
-      <div>
-        <label>인원 수</label>
-        <input
-          name="max"
-          value={maxPeople}
-          onChange={onChange}
-          placeholder="인원 수"
-          required
-        />
-      </div>
-      <div>
-        <label>설명</label>
-        <input
-          name="desc"
-          value={description}
-          onChange={onChange}
-          placeholder="설명"
-          required
-        />
-      </div>
-      <div>
-        <label>시작 날짜</label>
-        <StartSet />
-      </div>
-      <div>
-        <label>종료 날짜</label>
-        <EndSet />
-      </div>
-      <button type="submit">생성하기</button>
-      <button onClick={ () => setModalIsOpen(false)}>취소하기</button>
-    </form>
+    <Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>목표 제목</Form.Label>
+          <Form.Control
+            name="title"
+            value={title}
+            onChange={onChange}
+            placeholder="목표 제목"
+            required
+          />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>최대 인원 수</Form.Label>
+          <Form.Control
+            name="max"
+            value={maxPeople}
+            onChange={onChange}
+            placeholder="최대 인원 수"
+            required
+          />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>목표 설명</Form.Label>
+          <Form.Control as="textarea" rows={2}
+            name="desc"
+            value={description}
+            onChange={onChange}
+            placeholder="설명"
+            required
+          />
+      </Form.Group>
+      <Row>
+        <Col xs={6}>
+          <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+            <Form.Label>목표 시작 날짜</Form.Label>
+              <StartSet />
+          </Form.Group>
+        </Col>
+        <Col xs={6}>
+          <Form.Group className="mb-12" controlId="exampleForm.ControlInput1">
+            <Form.Label>목표 종료 날짜</Form.Label>
+              <EndSet />
+          </Form.Group>
+        </Col>
+      </Row>
+      <br />
+      <ModalFooter>
+        <Button variant="success" type="submit" >생성하기</Button>
+      </ModalFooter>
+    </Form>
   );
 }
 
