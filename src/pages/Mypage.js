@@ -16,7 +16,7 @@ function Mypage({isLogin, info}) {
 
   useEffect(() => {
     axios
-      .get("http://"+process.env.REACT_APP_API_URL+`/api/user_routine_list/12345678`, {
+      .get("http://"+process.env.REACT_APP_API_URL+`/api/user_routine_list/${info.pk}`, {
       })
       .then((res) => {
         setRoutines([...res.data]);
@@ -44,7 +44,7 @@ function Mypage({isLogin, info}) {
         <Container>
           <Row xs={1} md={2} className="g-4">
               {routines.map((routine, idx) => {
-                if(routine.status === "deleted") {
+                if(routine.status === "completed") {
                   return <UserRoutine key={idx} routine={routine} />
                 }
               })}
