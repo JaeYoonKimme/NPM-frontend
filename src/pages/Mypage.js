@@ -1,13 +1,13 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useNavigate } from "react";
 import UserRoutine from "../components/UserRoutine/UserRoutine";
 import axios from "axios";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-function Mypage() {
-  function Mypage({isLogin, info}) {
+
+function Mypage({isLogin, info}) {
   const navigate = useNavigate();
   if (!isLogin) navigate('/');
   
