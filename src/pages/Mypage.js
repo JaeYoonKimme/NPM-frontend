@@ -13,6 +13,7 @@ function Mypage({isLogin, info}) {
   if (!isLogin) navigate('/');
   
   const [routines, setRoutines] = useState([]);
+  
 
   useEffect(() => {
     axios
@@ -29,11 +30,11 @@ function Mypage({isLogin, info}) {
 
   return (
     <Tabs
-      defaultActiveKey="progress"
+      defaultActiveKey="active"
       id="uncontrolled-tab-example"
       className="mb-3"
     >
-      <Tab eventKey="progress" title="진행중인 목표">
+      <Tab eventKey="active" title="진행중인 목표">
         <Container>
           <Row xs={1} md={2} className="g-4">
               {routines.map((routine, idx) => (
