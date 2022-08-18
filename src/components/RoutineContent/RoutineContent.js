@@ -8,9 +8,12 @@ function RoutineContent({ routine }) {
       state: {
         id: routine.id,
         title: routine.title,
+        now_people_number: routine.now_people_number,
+        max_people_number: routine.max_people_number,
         start_date: routine.start_date,
         end_date: routine.end_date,
         description: routine.description,
+        now_count: routine.now_count,
         max_count: routine.max_count,
       },
     });

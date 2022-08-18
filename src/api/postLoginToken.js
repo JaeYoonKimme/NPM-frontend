@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const postLoginToken = async token => {
-    const API_URL = process.env.REACT_APP_API_URL;
+    const API_URL = `http://${process.env.REACT_APP_API_URL}`;
     const path = "dj-rest-auth/google/";
 
     try {
