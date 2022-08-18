@@ -7,7 +7,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 function Mypage() {
-
+  function Mypage({isLogin, info}) {
+  const navigate = useNavigate();
+  if (!isLogin) navigate('/');
+  
   const [routines, setRoutines] = useState([]);
 
   useEffect(() => {
