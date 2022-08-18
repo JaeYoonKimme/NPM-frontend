@@ -9,8 +9,6 @@ import Row from 'react-bootstrap/Row';
 
 
 function Mypage({isLogin, info}) {
-  const [routines, setRoutines] = useState([]);
-
   const navigate = useNavigate();
   if (!isLogin) navigate('/');
   
