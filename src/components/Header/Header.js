@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Col, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { Container, Col, Nav, Navbar, NavDropdown, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getLogout } from '../../api/getLogout';
 import profile from "../../img/profile.png";
@@ -11,8 +11,9 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
     setIsLogin(false);
   }
 
+
   return (
-    <Navbar bg="outlined-warning" variant="light">
+    <Navbar bg="danger" variant="light">
       <Container>
         <Col lg="4"></Col>
         <Col lg="4">
@@ -48,7 +49,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
                 <NavDropdown.Item onClick={onClick}>로그아웃</NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <Button variant="outline-success" href="/login">로그인</Button> 
+              <Button variant="light" href="/login">로그인</Button> 
             )}
           </Nav>
         </Col>
