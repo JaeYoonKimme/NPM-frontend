@@ -9,6 +9,8 @@ import Row from 'react-bootstrap/Row';
 
 
 function Mypage({isLogin, info}) {
+  const [routines, setRoutines] = useState([]);
+
   const navigate = useNavigate();
   if (!isLogin) navigate('/');
   
@@ -26,6 +28,18 @@ function Mypage({isLogin, info}) {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const uid = 12345678
+
+  useEffect(() => {
+    axios
+      .get("http://" + process.env.REACT_APP_API_URL + `/api/user_routine_list/${uid}`
+      )
+      .then((res)=>{
+         setRoutines([...res.data]);
+      })
+      .catch((err) => console.log(err));
+    }, []);
 
   return (
     <Tabs

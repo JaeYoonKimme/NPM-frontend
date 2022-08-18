@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import createMaxCount from "./CreateMaxCount.js"
+
 
 function RoutineCreate({setModalIsOpen}) {
   const [title, setTitle] = useState("");
@@ -12,6 +14,8 @@ function RoutineCreate({setModalIsOpen}) {
   const [endDate, setEndDate] = useState("");
   const [maxCount, setMaxCount] = useState(0);
 
+
+  
   const Convert = (date, delimiter = "-") => {
     const year = date.getFullYear();
     const month = leftPad(date.getMonth() + 1);
@@ -79,7 +83,7 @@ function RoutineCreate({setModalIsOpen}) {
         description: description,
         start_date: Convert(startDate),
         end_date: Convert(endDate),
-        max_count: maxCount,
+        max_count: createMaxCount(Convert(startDate),Convert(endDate)),
         status: "active",
       })
       .then((res) => {
