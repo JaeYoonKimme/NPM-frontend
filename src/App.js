@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Header isLogin={isLogin} setLogin={setIsLogin} info={info} setInfo={setInfo}/>
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} info={info} setInfo={setInfo}/>
       <Routes>
         <Route path="/" element={<RoutineList/>} />
         <Route path="/detail/:id" element={<RoutineDetail/>} />
