@@ -25,6 +25,7 @@ function App() {
     email: '',
     first_name: '',
     last_name: '',
+    profile_url: '',
   });
 
   useEffect(() => {
