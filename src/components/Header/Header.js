@@ -35,7 +35,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
               <NavDropdown id="basic-nav-dropdown"
                 title={
                   <img
-                    src={profile}
+                    src={info.profile_url}
                     alt=""
                     style={{ borderRadius: "50%" }}
                     width="30"
