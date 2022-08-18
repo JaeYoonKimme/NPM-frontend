@@ -6,13 +6,13 @@ export const postLoginToken = async token => {
 
     try {
        const response = await axios.post(
-        `${API_URL}/${path}`,
+        `http://${API_URL}/${path}`,
         {
             "access_token": token,
-        }
+        },
+        {withCredentials: true}
        )
-        console.log(response.status)
-        
+
         if (response.status !== 200) throw new Error("API SERVER DOES NOT WORK");
         return true;
     } catch (error) {
