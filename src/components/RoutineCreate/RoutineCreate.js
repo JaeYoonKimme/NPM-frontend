@@ -8,10 +8,10 @@ import createMaxCount from "./CreateMaxCount.js"
 
 function RoutineCreate({setModalIsOpen}) {
   const [title, setTitle] = useState("");
-  const [maxPeople, setMaxPeople] = useState(1);
+  const [maxPeople, setMaxPeople] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [maxCount, setMaxCount] = useState(0);
 
 
@@ -121,12 +121,12 @@ function RoutineCreate({setModalIsOpen}) {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <label>이름</label>
+        <label>제목</label>
         <input
           name="title"
           value={title}
           onChange={onChange}
-          placeholder="이름"
+          placeholder="제목"
           required
         />
       </div>
@@ -159,6 +159,7 @@ function RoutineCreate({setModalIsOpen}) {
         <EndSet />
       </div>
       <button type="submit">생성하기</button>
+      <button onClick={ () => setModalIsOpen(false)}>취소하기</button>
     </form>
   );
 }
