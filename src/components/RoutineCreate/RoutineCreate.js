@@ -3,27 +3,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Form, Modal, Button, ModalFooter, Col, Row, Toast } from 'react-bootstrap';
-import createMaxCount from "./CreateMaxCount.js"
+import {
+  Form,
+  Modal,
+  Button,
+  ModalFooter,
+  Col,
+  Row,
+  Toast,
+} from "react-bootstrap";
+import createMaxCount from "./CreateMaxCount.js";
 
-function RoutineCreate({setModalIsOpen}) {
-  const [title, setTitle] = useState("");
-  const [maxPeople, setMaxPeople] = useState("");
-  const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [maxCount, setMaxCount] = useState(0);
 
 
-  
-  const Convert = (date, delimiter = "-") => {
-    const year = date.getFullYear();
-    const month = leftPad(date.getMonth() + 1);
-    const day = leftPad(date.getDate());
-
-    return [year, month, day].join(delimiter);
-  };
-
+export const Convert = (date, delimiter = "-") => {
   const leftPad = (value) => {
     if (value >= 10) {
       return value;
@@ -31,14 +24,31 @@ function RoutineCreate({setModalIsOpen}) {
     return `0${value}`;
   };
 
+  const year = date.getFullYear();
+  const month = leftPad(date.getMonth() + 1);
+  const day = leftPad(date.getDate());
+
+  return [year, month, day].join(delimiter);
+};
+
+function RoutineCreate({ info, setModalIsOpen }) {
+  const [title, setTitle] = useState("");
+  const [maxPeople, setMaxPeople] = useState("");
+  const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [maxCount, setMaxCount] = useState(0);
+
+  
+
   const StartSet = () => {
     return (
-        <DatePicker
-          dateFormat="yyyy-MM-dd"
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          minDate={new Date()}
-        />
+      <DatePicker
+        dateFormat="yyyy-MM-dd"
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        minDate={new Date()}
+      />
     );
   };
 
@@ -56,10 +66,6 @@ function RoutineCreate({setModalIsOpen}) {
     );
   };
   const navigate = useNavigate();
-
-  // 임시 user id
-  // const uid = "87654321"
-  const uid = "12345678";
 
   const onChange = (event) => {
     const name = event.target.name;
@@ -83,7 +89,7 @@ function RoutineCreate({setModalIsOpen}) {
         description: description,
         start_date: Convert(startDate),
         end_date: Convert(endDate),
-        max_count: createMaxCount(Convert(startDate),Convert(endDate)),
+        max_count: createMaxCount(Convert(startDate), Convert(endDate)),
         status: "active",
       })
       .then((res) => {
@@ -99,7 +105,7 @@ function RoutineCreate({setModalIsOpen}) {
             description: description,
             start_date: Convert(startDate),
             end_date: Convert(endDate),
-            max_count: maxCount,
+            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
             status: "active",
           },
         });
@@ -107,10 +113,10 @@ function RoutineCreate({setModalIsOpen}) {
         axios.post(
           "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
           {
-            user_id: uid,
+            user_id: info.pk,
             routine_id: res.data.id,
             now_count: 0,
-            max_count: maxCount,
+            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
             is_host: "True",
           }
         );
@@ -122,51 +128,55 @@ function RoutineCreate({setModalIsOpen}) {
     <Form onSubmit={onSubmit}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>목표 제목</Form.Label>
-          <Form.Control
-            name="title"
-            value={title}
-            onChange={onChange}
-            placeholder="목표 제목"
-            required
-          />
+        <Form.Control
+          name="title"
+          value={title}
+          onChange={onChange}
+          placeholder="목표 제목"
+          required
+        />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>최대 인원 수</Form.Label>
-          <Form.Control
-            name="max"
-            value={maxPeople}
-            onChange={onChange}
-            placeholder="최대 인원 수"
-            required
-          />
+        <Form.Control
+          name="max"
+          value={maxPeople}
+          onChange={onChange}
+          placeholder="최대 인원 수"
+          required
+        />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>목표 설명</Form.Label>
-          <Form.Control as="textarea" rows={2}
-            name="desc"
-            value={description}
-            onChange={onChange}
-            placeholder="설명"
-            required
-          />
+        <Form.Control
+          as="textarea"
+          rows={2}
+          name="desc"
+          value={description}
+          onChange={onChange}
+          placeholder="설명"
+          required
+        />
       </Form.Group>
       <Row>
         <Col xs={6}>
           <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
             <Form.Label>목표 시작 날짜</Form.Label>
-              <StartSet />
+            <StartSet />
           </Form.Group>
         </Col>
         <Col xs={6}>
           <Form.Group className="mb-12" controlId="exampleForm.ControlInput1">
             <Form.Label>목표 종료 날짜</Form.Label>
-              <EndSet />
+            <EndSet />
           </Form.Group>
         </Col>
       </Row>
       <br />
       <ModalFooter>
-        <Button variant="success" type="submit" >생성하기</Button>
+        <Button variant="success" type="submit">
+          생성하기
+        </Button>
       </ModalFooter>
     </Form>
   );

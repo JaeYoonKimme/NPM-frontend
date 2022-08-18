@@ -6,7 +6,7 @@ import axios from "axios";
 import { Card, Button, Form, Modal, Col, Row, Container } from 'react-bootstrap';
 
 
-function RoutineList() {
+function RoutineList({info}) {
   const [routines, setRoutines] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleClose = () => setModalIsOpen(false);
@@ -38,7 +38,7 @@ function RoutineList() {
           <Modal.Title>목표 생성하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <RoutineCreate setModalIsOpen={setModalIsOpen} />
+          <RoutineCreate info={info} setModalIsOpen={setModalIsOpen} />
         </Modal.Body>
       </Modal>
     </Container>
