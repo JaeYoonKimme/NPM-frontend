@@ -13,6 +13,7 @@ function Mypage({isLogin, info}) {
       <h2>email : {info.email}</h2>
       <h2>first name : {info.first_name}</h2>
       <h2>last name : {info.last_name}</h2>
+      <h2>profile url : {info.profile_url}</h2>
     </>
   )
 }
