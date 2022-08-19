@@ -14,8 +14,6 @@ import {
 } from "react-bootstrap";
 import createMaxCount from "./CreateMaxCount.js";
 
-
-
 export const Convert = (date, delimiter = "-") => {
   const leftPad = (value) => {
     if (value >= 10) {
@@ -38,8 +36,6 @@ function RoutineCreate({ info, setModalIsOpen }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [maxCount, setMaxCount] = useState(0);
-
-  
 
   const StartSet = () => {
     return (
@@ -93,8 +89,16 @@ function RoutineCreate({ info, setModalIsOpen }) {
         status: "active",
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.id);
+        axios.post(
+          "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+          {
+            user_id: info.pk,
+            routine_id: res.data.id,
+            now_count: 0,
+            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
+            is_host: "True",
+          }
+        );
         alert("목표 생성이 완료되었습니다!");
         navigate("/detail/" + title, {
           state: {
@@ -110,16 +114,6 @@ function RoutineCreate({ info, setModalIsOpen }) {
           },
         });
         setModalIsOpen(false);
-        axios.post(
-          "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
-          {
-            user_id: info.pk,
-            routine_id: res.data.id,
-            now_count: 0,
-            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-            is_host: "True",
-          }
-        );
       })
       .catch((err) => console.log(err));
   };

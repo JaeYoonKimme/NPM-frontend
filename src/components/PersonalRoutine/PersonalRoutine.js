@@ -51,11 +51,11 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
     let date = now.getDate();
     const today = `${year}-${month}-${date}`;
     if (start_date > today) {
-      setIsButtonShow(false)
+      setIsButtonShow(false)        // 시작하지 않은 경우 버튼 안 보이게
     } else if (nowCount === 0 && created_at === updated_at) {
-      setIsButtonShow(true)
+      setIsButtonShow(true)         // 루틴 생성한 날 시작한 경우 버튼 보이게
     } else if (updated_at === today) {
-      setIsButtonShow(false);
+      setIsButtonShow(false);       // 버튼 클릭이 1일 1회 가능하도록
     } else {
       setIsButtonShow(true);
     }
@@ -63,7 +63,7 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
 
   useEffect(() => {
     setChangeValue((100 * nowCount) / max_count);
-    setAvocado(((100 * (nowCount+1)) / max_count * 7) / 10);
+    setAvocado((600 * nowCount) / max_count );
   }, [nowCount])
 
   return (
@@ -87,8 +87,10 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
                 width: "660px",
               }}
             >
-              <div style={{ width: `${avocado}em` }}>
-                <Lottie options={defaultOptions} height={100} width={100} />
+              <div style={{ marginLeft: `${avocado}px` }}>
+                <div style={{ width: '6em' }}>
+                  <Lottie options={defaultOptions} height={100} width={100} />
+                </div>
               </div>
               <div style={{ width: "600px", margin: "0 0 0 60px" }}>
                 <ProgressBar now={changeValue} />
