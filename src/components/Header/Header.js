@@ -74,8 +74,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
                     style={{ borderRadius: "50%" }}
                     width="30"
                     height="30"
-                  />
-                }
+                  />}
               >
                 <NavDropdown.Item as={Link} to="/profile">
                   마이페이지

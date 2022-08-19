@@ -50,6 +50,14 @@ function RoutineDetail({ isLogin, info }) {
   }, []);
 
   useEffect(() => {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+      }
+    let date = now.getDate();
+    const today = `${year}-${month}-${date}`;
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         params: {
@@ -59,10 +67,19 @@ function RoutineDetail({ isLogin, info }) {
       })
       .then((res) => {
         if (res.data === "" && now_people_number < max_people_number) {
-          setIsEnterShow(true);
+          if( start_date > today ){
+            setIsEnterShow(true);
+          } else {
+            setIsEnterShow(false);
+          }
         } else if (res.data.is_host === true) {
-          setIsDeleteShow(true);
-          setIsEditShow(true);
+          if(start_date > today){
+            setIsDeleteShow(true);
+            setIsEditShow(true);
+          } else {
+            setIsDeleteShow(false);
+            setIsEditShow(false);
+          }
         }
         if (res.data !== "") {
           setUserRoutine(res.data);
