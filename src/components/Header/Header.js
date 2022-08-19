@@ -10,8 +10,7 @@ import { gapi } from 'gapi-script';
 function Header({ isLogin, setIsLogin, info, setInfo }) {
 
   const onClick = () => {
-    getLogout();
-    setIsLogin(false);
+    setIsLogin(!getLogout(setInfo));
   }
 
   const client_id = process.env.REACT_APP_CLIENT_ID;
