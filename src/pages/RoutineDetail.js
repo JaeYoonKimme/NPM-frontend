@@ -18,6 +18,8 @@ function RoutineDetail({info}) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  
+
   const id = location.state.id;
   const title = location.state.title;
   const max_people_number = location.state.max_people_number;
@@ -33,6 +35,14 @@ function RoutineDetail({info}) {
   const [editDes, setEditDes] = useState(des);
 
   useEffect(() => {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+      }
+    let date = now.getDate();
+    const today = `${year}-${month}-${date}`;
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         params: {
@@ -41,15 +51,21 @@ function RoutineDetail({info}) {
         },
       })
       .then((res) => {
-        console.log(res);
-        console.log(now_people_number);
-        console.log(max_people_number);
         if (res.data === "" && now_people_number < max_people_number) {
           console.log("참가 버튼 open");
-          setIsEnterShow(true);
+          if( start_date > today ){
+            setIsEnterShow(true);
+          } else {
+            setIsEnterShow(false);
+          }
         } else if (res.data.is_host === true) {
-          setIsDeleteShow(true);
-          setIsEditShow(true);
+          if(start_date > today){
+            setIsDeleteShow(true);
+            setIsEditShow(true);
+          } else {
+            setIsDeleteShow(false);
+            setIsEditShow(false);
+          }
         }
         if (res.data !== "") {
           setUserRoutine(res.data);
@@ -145,6 +161,10 @@ function RoutineDetail({info}) {
     setEditDes(e.target.value);
   };
 
+  console.log("userRoutine", userRoutine)
+  console.log("routine_id", id)
+  console.log("user_id", info.pk)
+
   return (
     <>
       {editInput ? (
@@ -215,7 +235,7 @@ function RoutineDetail({info}) {
         {addNowPeople} / {max_people_number}
       </div>
       {userRoutine !== null ? (
-        <PersonalRoutine userRoutine={userRoutine} />
+        <PersonalRoutine userRoutine={userRoutine} start_date={start_date} end_date={end_date} />
       ) : (
         <div
           style={{

@@ -31,7 +31,7 @@ function RoutineContent({ routine }) {
               참여 인원 : {routine.now_people_number} / {routine.max_people_number}
             </Col>
             <Col xs={5}>
-              <Button variant="outline-warning" onClick={move}>참여하기</Button>
+              <Button variant="outline-warning" onClick={move}>들어가기</Button>
             </Col>
           </Row>
         </Card.Body>

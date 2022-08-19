@@ -5,12 +5,13 @@ import Lottie from "react-lottie";
 import animationData from "../../lottie/63272-walking-avocado";
 import profile from "../../img/profile.png";
 
-function PersonalRoutine({ userRoutine }) {
+function PersonalRoutine({ userRoutine, start_date, end_date }) {
   const id = userRoutine.id;
   const user_id = userRoutine.user_id;
   const routine_id = userRoutine.routine_id;
   const [nowCount, setNowCount] = useState(userRoutine.now_count);
   const max_count = userRoutine.max_count;
+  const created_at = userRoutine.created_at;
   const updated_at = userRoutine.updated_at;
 
   const [changeValue, setChangeValue] = useState(
@@ -49,8 +50,12 @@ function PersonalRoutine({ userRoutine }) {
     }
     let date = now.getDate();
     const today = `${year}-${month}-${date}`;
-    if (updated_at === today) {
-      setIsButtonShow(false);
+    if (start_date > today) {
+      setIsButtonShow(false)        // 시작하지 않은 경우 버튼 안 보이게
+    } else if (nowCount === 0 && created_at === updated_at) {
+      setIsButtonShow(true)         // 루틴 생성한 날 시작한 경우 버튼 보이게
+    } else if (updated_at === today) {
+      setIsButtonShow(false);       // 버튼 클릭이 1일 1회 가능하도록
     } else {
       setIsButtonShow(true);
     }
@@ -58,7 +63,7 @@ function PersonalRoutine({ userRoutine }) {
 
   useEffect(() => {
     setChangeValue((100 * nowCount) / max_count);
-    setAvocado(((100 * (nowCount+1)) / max_count * 7) / 10);
+    setAvocado((600 * nowCount) / max_count );
   }, [nowCount])
 
   return (
@@ -82,8 +87,10 @@ function PersonalRoutine({ userRoutine }) {
                 width: "660px",
               }}
             >
-              <div style={{ width: `${avocado}em` }}>
-                <Lottie options={defaultOptions} height={100} width={100} />
+              <div style={{ marginLeft: `${avocado}px` }}>
+                <div style={{ width: '6em' }}>
+                  <Lottie options={defaultOptions} height={100} width={100} />
+                </div>
               </div>
               <div style={{ width: "600px", margin: "0 0 0 60px" }}>
                 <ProgressBar now={changeValue} />
