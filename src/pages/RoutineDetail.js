@@ -45,7 +45,21 @@ function RoutineDetail({info}) {
       .then((res) => {
         if (res.data === "" && now_people_number < max_people_number) {
           console.log("참가 버튼 open");
-          setIsEnterShow(true);
+          let now = new Date();
+          let year = now.getFullYear();
+          let month = now.getMonth() + 1;
+          if (month < 10) {
+            month = `0${month}`;
+          }
+          let date = now.getDate();
+          const today = `${year}-${month}-${date}`;
+          if( start_date > today ){
+            setIsEnterShow(true);
+          } else {
+            console.log(start_date, today)
+            console.log(start_date < today)
+            setIsEnterShow(false);
+          }
         } else if (res.data.is_host === true) {
           setIsDeleteShow(true);
           setIsEditShow(true);
