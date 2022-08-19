@@ -6,8 +6,10 @@ import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 import { Convert } from "../components/RoutineCreate/RoutineCreate";
 import createMaxCount from "../components/RoutineCreate/CreateMaxCount";
+import animationData from "../lottie/63272-walking-avocado";
+import otherAnimationData from "../lottie/0z0tZic8y3";
 
-function RoutineDetail({info}) {
+function RoutineDetail({ isLogin, info }) {
   const [isEnterShow, setIsEnterShow] = useState(false);
   const [isDeleteShow, setIsDeleteShow] = useState(false);
   const [isEditShow, setIsEditShow] = useState(false);
@@ -18,8 +20,6 @@ function RoutineDetail({info}) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  
-
   const id = location.state.id;
   const title = location.state.title;
   const max_people_number = location.state.max_people_number;
@@ -29,10 +29,25 @@ function RoutineDetail({info}) {
   const des = location.state.description;
   const max_count = location.state.max_count;
   const status = location.state.stauts;
-  const dDay = createMaxCount(Convert(new Date()), end_date)
+  const dDay = createMaxCount(Convert(new Date()), end_date);
   const [addNowPeople, setAddNowPeople] = useState(now_people_number);
   const [editTitle, setEditTitle] = useState(title);
   const [editDes, setEditDes] = useState(des);
+  const [routines, setRoutines] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://${process.env.REACT_APP_API_URL}/api/all_user_routines/`, {
+        params: {
+          routine_id: id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setRoutines([...res.data]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     axios
@@ -44,7 +59,6 @@ function RoutineDetail({info}) {
       })
       .then((res) => {
         if (res.data === "" && now_people_number < max_people_number) {
-          console.log("참가 버튼 open");
           setIsEnterShow(true);
         } else if (res.data.is_host === true) {
           setIsDeleteShow(true);
@@ -72,7 +86,7 @@ function RoutineDetail({info}) {
       .catch((err) => {
         console.log(err);
       });
-    
+
     // 참가하기 버튼 없애고 현재 인원 +1
     setIsEnterShow(false);
     alert("참가 완료");
@@ -144,10 +158,6 @@ function RoutineDetail({info}) {
     setEditDes(e.target.value);
   };
 
-  console.log("userRoutine", userRoutine)
-  console.log("routine_id", id)
-  console.log("user_id", info.pk)
-
   return (
     <>
       {editInput ? (
@@ -187,7 +197,9 @@ function RoutineDetail({info}) {
             margin: "1em",
           }}
         >
-          <div style={{ fontSize: "36px", fontWeight: "bold" }}>{`D-${dDay}`}</div>
+          <div
+            style={{ fontSize: "36px", fontWeight: "bold" }}
+          >{`D-${dDay}`}</div>
           <div>
             {start_date} ~ {end_date}
           </div>
@@ -217,8 +229,15 @@ function RoutineDetail({info}) {
       <div style={{ textAlign: "center" }}>
         {addNowPeople} / {max_people_number}
       </div>
-      {userRoutine !== null ? (
-        <PersonalRoutine userRoutine={userRoutine} start_date={start_date} end_date={end_date} />
+      {userRoutine != null && isLogin ? (
+        <PersonalRoutine
+          info={info}
+          userRoutine={userRoutine}
+          start_date={start_date}
+          end_date={end_date}
+          isShow={true}
+          animationData={animationData}
+        />
       ) : (
         <div
           style={{
@@ -231,6 +250,21 @@ function RoutineDetail({info}) {
           {isEnterShow && <Button onClick={onClickEnter}>참가하기</Button>}
         </div>
       )}
+      <hr />
+      {routines.map((routine, idx) => {
+        if (routine.user_id != info.pk) {
+          return (
+            <PersonalRoutine
+              userRoutine={routine}
+              start_date={start_date}
+              end_date={end_date}
+              isShow={false}
+              animationData={otherAnimationData}
+            />
+          );
+        }
+      })}
+
       {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
       {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
       {isCompleteShow && <button onClick={onClickComplete}>저장하기</button>}

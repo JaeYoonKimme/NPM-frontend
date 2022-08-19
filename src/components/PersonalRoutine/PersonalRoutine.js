@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, ProgressBar, Button } from "react-bootstrap";
 import axios from "axios";
 import Lottie from "react-lottie";
-import animationData from "../../lottie/63272-walking-avocado";
 import profile from "../../img/profile.png";
 
-function PersonalRoutine({ userRoutine, start_date, end_date }) {
+function PersonalRoutine({
+  userRoutine,
+  start_date,
+  end_date,
+  isShow,
+  animationData,
+}) {
   const id = userRoutine.id;
   const user_id = userRoutine.user_id;
   const routine_id = userRoutine.routine_id;
@@ -17,7 +22,7 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
   const [changeValue, setChangeValue] = useState(
     Math.round((100 * nowCount) / max_count)
   );
-  const [avocado, setAvocado] = useState((changeValue * 7) / 10);
+  const [avocado, setAvocado] = useState((600 * nowCount) / max_count);
   const [isButtonShow, setIsButtonShow] = useState(false);
 
   const defaultOptions = {
@@ -30,15 +35,14 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
   };
 
   const onClick = () => {
-    axios
-      .patch(
-        `http://${process.env.REACT_APP_API_URL}/api/user_routine/${userRoutine.id}`,
-        {
-          now_count: nowCount + 1,
-        }
-      )
-      setNowCount(nowCount + 1);
-      setIsButtonShow(false);
+    axios.patch(
+      `http://${process.env.REACT_APP_API_URL}/api/user_routine/${userRoutine.id}`,
+      {
+        now_count: nowCount + 1,
+      }
+    );
+    setNowCount(nowCount + 1);
+    setIsButtonShow(false);
   };
 
   useEffect(() => {
@@ -51,11 +55,11 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
     let date = now.getDate();
     const today = `${year}-${month}-${date}`;
     if (start_date > today) {
-      setIsButtonShow(false)        // 시작하지 않은 경우 버튼 안 보이게
+      setIsButtonShow(false); // 시작하지 않은 경우 버튼 안 보이게
     } else if (nowCount === 0 && created_at === updated_at) {
-      setIsButtonShow(true)         // 루틴 생성한 날 시작한 경우 버튼 보이게
+      setIsButtonShow(true); // 루틴 생성한 날 시작한 경우 버튼 보이게
     } else if (updated_at === today) {
-      setIsButtonShow(false);       // 버튼 클릭이 1일 1회 가능하도록
+      setIsButtonShow(false); // 버튼 클릭이 1일 1회 가능하도록
     } else {
       setIsButtonShow(true);
     }
@@ -63,8 +67,8 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
 
   useEffect(() => {
     setChangeValue((100 * nowCount) / max_count);
-    setAvocado((600 * nowCount) / max_count );
-  }, [nowCount])
+    setAvocado((600 * nowCount) / max_count);
+  }, [nowCount]);
 
   return (
     <Container>
@@ -88,7 +92,7 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
               }}
             >
               <div style={{ marginLeft: `${avocado}px` }}>
-                <div style={{ width: '6em' }}>
+                <div style={{ width: "6em" }}>
                   <Lottie options={defaultOptions} height={100} width={100} />
                 </div>
               </div>
@@ -109,13 +113,14 @@ function PersonalRoutine({ userRoutine, start_date, end_date }) {
               justifyContent: "center",
             }}
           >
-            {isButtonShow ? (
-              <Button onClick={onClick}>완료</Button>
-            ) : (
-              <Button variant="secondary" disabled>
-                완료
-              </Button>
-            )}
+            {isShow &&
+              (isButtonShow ? (
+                <Button onClick={onClick}>완료</Button>
+              ) : (
+                <Button variant="secondary" disabled>
+                  완료
+                </Button>
+              ))}
           </div>
         </div>
       </Row>
