@@ -5,7 +5,6 @@ import RoutineList from './pages/RoutineList';
 import RoutineDetail from './pages/RoutineDetail';
 import Mypage from './pages/Mypage';
 import Login from './pages/Login'
-import Logout from './pages/Logout'
 import { getUserInfo } from './api/getUserInfo';
 
 function App() {
