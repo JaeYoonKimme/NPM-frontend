@@ -44,7 +44,7 @@ function RoutineList({ info }) {
     <Row xs={1} md={2} className="g-4">
       {routines.map((routine, idx) => (
         <Col>
-            <RoutineContent key={idx} routine={routine} text="참가하기" />
+            <RoutineContent key={idx} routine={routine} />
         </Col>
       ))}
     </Row>

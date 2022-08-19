@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Col, Row, CardGroup, ListGroup } from 'react-bootstrap';
 
-function RoutineContent({ routine, text }) {
+function RoutineContent({ routine }) {
   const navigate = useNavigate();
   const move = () => {
     navigate("/detail/" + routine.title, {
@@ -31,7 +31,7 @@ function RoutineContent({ routine, text }) {
               참여 인원 : {routine.now_people_number} / {routine.max_people_number}
             </Col>
             <Col xs={5}>
-              <Button variant="outline-warning" onClick={move}>{text}</Button>
+              <Button variant="outline-warning" onClick={move}>들어가기</Button>
             </Col>
           </Row>
         </Card.Body>
