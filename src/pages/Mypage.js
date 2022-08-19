@@ -33,7 +33,7 @@ function Mypage({isLogin, info}) {
             <Row xs={1} md={2} className="g-4">
                 {routines.map((routine, idx) => {
                   if(routine.status === "active") {
-                    return <UserRoutine key={idx} routine={routine} />
+                    return <RoutineContent key={idx} routine={routine} />
                   }
                 })}
             </Row>
@@ -44,7 +44,7 @@ function Mypage({isLogin, info}) {
             <Row xs={1} md={2} className="g-4">
                 {routines.map((routine, idx) => {
                   if(routine.status === "completed") {
-                    return <UserRoutine key={idx} routine={routine} />
+                    return <RoutineContent key={idx} routine={routine} />
                   }
                 })}
             </Row>
