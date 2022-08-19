@@ -1,7 +1,6 @@
 import { Container, Col, Nav, Navbar, NavDropdown, Button, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { getLogout } from '../../api/getLogout';
-import profile from "../../img/profile.png";
 import { React, useEffect} from 'react';
 import { postLoginToken } from '../../api/postLoginToken';
 import GoogleLogin from 'react-google-login';
