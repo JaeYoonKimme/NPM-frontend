@@ -215,7 +215,7 @@ function RoutineDetail({info}) {
         {addNowPeople} / {max_people_number}
       </div>
       {userRoutine !== null ? (
-        <PersonalRoutine userRoutine={userRoutine} />
+        <PersonalRoutine userRoutine={userRoutine} start_date={start_date} end_date={end_date} />
       ) : (
         <div
           style={{

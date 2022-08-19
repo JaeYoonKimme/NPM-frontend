@@ -5,12 +5,13 @@ import Lottie from "react-lottie";
 import animationData from "../../lottie/63272-walking-avocado";
 import profile from "../../img/profile.png";
 
-function PersonalRoutine({ userRoutine }) {
+function PersonalRoutine({ userRoutine, start_date, end_date }) {
   const id = userRoutine.id;
   const user_id = userRoutine.user_id;
   const routine_id = userRoutine.routine_id;
   const [nowCount, setNowCount] = useState(userRoutine.now_count);
   const max_count = userRoutine.max_count;
+  const created_at = userRoutine.created_at;
   const updated_at = userRoutine.updated_at;
 
   const [changeValue, setChangeValue] = useState(
@@ -49,7 +50,11 @@ function PersonalRoutine({ userRoutine }) {
     }
     let date = now.getDate();
     const today = `${year}-${month}-${date}`;
-    if (updated_at === today) {
+    if (start_date > today) {
+      setIsButtonShow(false)
+    } else if (nowCount === 0 && created_at === updated_at) {
+      setIsButtonShow(true)
+    } else if (updated_at === today) {
       setIsButtonShow(false);
     } else {
       setIsButtonShow(true);
