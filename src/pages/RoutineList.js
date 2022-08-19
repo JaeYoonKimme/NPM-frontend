@@ -6,7 +6,7 @@ import axios from "axios";
 import { Card, Button, Form, Modal, Col, Row, Container } from 'react-bootstrap';
 
 
-function RoutineList({info}) {
+function RoutineList() {
   const [routines, setRoutines] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleClose = () => setModalIsOpen(false);
@@ -26,22 +26,30 @@ function RoutineList({info}) {
   }, []);
 
   return (
+    <>
+    <div style={{ marginTop : 20 }}>
+    <Col md={{ span: 10, offset: 10 }}>
+      <Button variant="success" onClick={() => setModalIsOpen(true)}>목표 만들기</Button>
+    </Col>
+    </div>
+    <Modal show={modalIsOpen} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>목표 생성하기</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <RoutineCreate setModalIsOpen={setModalIsOpen} />
+      </Modal.Body>
+    </Modal>
     <Container style={{ width: '50rem' }}>
-      <Row className="justify-content-md-center">
-          {routines.map((routine, idx) => (
+    <Row xs={1} md={2} className="g-4">
+      {routines.map((routine, idx) => (
+        <Col>
             <RoutineContent key={idx} routine={routine} />
-          ))}
-      </Row>
-      <Button variant="outline-info" onClick={() => setModalIsOpen(true)}>목표 만들기</Button>
-      <Modal show={modalIsOpen} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>목표 생성하기</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <RoutineCreate info={info} setModalIsOpen={setModalIsOpen} />
-        </Modal.Body>
-      </Modal>
+        </Col>
+      ))}
+    </Row>
     </Container>
+    </>
   );
 }
 
