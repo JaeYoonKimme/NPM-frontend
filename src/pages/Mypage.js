@@ -2,7 +2,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import UserRoutine from "../components/UserRoutine/UserRoutine";
+import RoutineContent from "../components/RoutineContent/RoutineContent";
 import axios from "axios";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -34,7 +34,7 @@ function Mypage({isLogin, info}) {
           <Row xs={1} md={2} className="g-4">
               {routines.map((routine, idx) => {
                 if(routine.status === "active") {
-                  return <UserRoutine key={idx} routine={routine} />
+                  return <RoutineContent key={idx} routine={routine} text="달성하기" />
                 }
               })}
           </Row>
@@ -45,7 +45,7 @@ function Mypage({isLogin, info}) {
           <Row xs={1} md={2} className="g-4">
               {routines.map((routine, idx) => {
                 if(routine.status === "completed") {
-                  return <UserRoutine key={idx} routine={routine} />
+                  return <RoutineContent key={idx} routine={routine} text="달성하기" />
                 }
               })}
           </Row>
