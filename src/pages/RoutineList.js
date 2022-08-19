@@ -6,7 +6,7 @@ import axios from "axios";
 import { Card, Button, Form, Modal, Col, Row, Container } from 'react-bootstrap';
 
 
-function RoutineList({ info }) {
+function RoutineList({ isLogin, info }) {
   const [routines, setRoutines] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleClose = () => setModalIsOpen(false);
@@ -29,7 +29,7 @@ function RoutineList({ info }) {
     <>
     <div style={{ marginTop : 20 }}>
     <Col md={{ span: 10, offset: 10 }}>
-      <Button variant="success" onClick={() => setModalIsOpen(true)}>목표 만들기</Button>
+      {isLogin ? (<Button variant="success" onClick={() => setModalIsOpen(true)}>목표 만들기</Button>) : (<></>)}
     </Col>
     </div>
     <Modal show={modalIsOpen} onHide={handleClose}>
