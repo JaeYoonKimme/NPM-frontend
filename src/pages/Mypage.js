@@ -24,35 +24,35 @@ function Mypage({isLogin, info}) {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <Tabs
-      defaultActiveKey="progress"
-      id="uncontrolled-tab-example"
-      className="mb-3"
-    >
-      <Tab eventKey="progress" title="진행중인 목표">
-        <Container>
-          <Row xs={1} md={2} className="g-4">
-              {routines.map((routine, idx) => {
-                if(routine.status === "active") {
-                  return <UserRoutine key={idx} routine={routine} />
-                }
-              })}
-          </Row>
-        </Container>
-      </Tab>
-      <Tab eventKey="completed" title="완료된 목표">
-        <Container>
-          <Row xs={1} md={2} className="g-4">
-              {routines.map((routine, idx) => {
-                if(routine.status === "completed") {
-                  return <UserRoutine key={idx} routine={routine} />
-                }
-              })}
-          </Row>
-        </Container>
-      </Tab>
-    </Tabs>
-    
+  <>
+    <div style={{ marginTop : 50 }}></div>
+    <Container style={{ width: '50rem' }}>
+      <Tabs defaultActiveKey="progress" id="uncontrolled-tab-example" className="mb-3" >
+        <Tab eventKey="progress" title="진행중인 목표">
+          <Container>
+            <Row xs={1} md={2} className="g-4">
+                {routines.map((routine, idx) => {
+                  if(routine.status === "active") {
+                    return <UserRoutine key={idx} routine={routine} />
+                  }
+                })}
+            </Row>
+          </Container>
+        </Tab>
+        <Tab eventKey="completed" title="완료된 목표">
+          <Container>
+            <Row xs={1} md={2} className="g-4">
+                {routines.map((routine, idx) => {
+                  if(routine.status === "completed") {
+                    return <UserRoutine key={idx} routine={routine} />
+                  }
+                })}
+            </Row>
+          </Container>
+        </Tab>
+      </Tabs>
+    </Container>
+    </>
   );
 }
 

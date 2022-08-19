@@ -66,10 +66,10 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
                     style={{ borderRadius: "50%" }}
                     width="30"
                     height="30"
-                  />
-                }
+                  />}
+
               >
-                <NavDropdown.Item href="/">마이페이지</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/profile">마이페이지</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={onClick}>로그아웃</NavDropdown.Item>
               </NavDropdown>
