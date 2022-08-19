@@ -39,7 +39,7 @@ function App() {
     <>
       <Header isLogin={isLogin} setIsLogin={setIsLogin} info={info} setInfo={setInfo}/>
       <Routes>
-        <Route path="/" element={<RoutineList info={info}/>} />
+        <Route path="/" element={<RoutineList isLogin={isLogin} info={info}/>} />
         <Route path="/detail/:id" element={<RoutineDetail info={info}/>} />
         <Route path="/profile" element={<Mypage isLogin={isLogin} info={info}/>} />
         <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
