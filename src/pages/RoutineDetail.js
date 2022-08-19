@@ -18,6 +18,8 @@ function RoutineDetail({info}) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  
+
   const id = location.state.id;
   const title = location.state.title;
   const max_people_number = location.state.max_people_number;
@@ -41,9 +43,6 @@ function RoutineDetail({info}) {
         },
       })
       .then((res) => {
-        console.log(res);
-        console.log(now_people_number);
-        console.log(max_people_number);
         if (res.data === "" && now_people_number < max_people_number) {
           console.log("참가 버튼 open");
           setIsEnterShow(true);
@@ -144,6 +143,10 @@ function RoutineDetail({info}) {
   const changeDes = (e) => {
     setEditDes(e.target.value);
   };
+
+  console.log("userRoutine", userRoutine)
+  console.log("routine_id", id)
+  console.log("user_id", info.pk)
 
   return (
     <>
