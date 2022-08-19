@@ -69,7 +69,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
                   />
                 }
               >
-                <NavDropdown.Item href="/">마이페이지</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/profile'>마이페이지</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={onClick}>로그아웃</NavDropdown.Item>
               </NavDropdown>
