@@ -15,6 +15,7 @@ function RoutineDetail({ isLogin, info }) {
   const [isEditShow, setIsEditShow] = useState(false);
   const [editInput, setEditInput] = useState(false);
   const [isCompleteShow, setIsCompleteShow] = useState(false);
+  const [isComeOutShow, setIsComeOutShow] = useState(false);
   const [userRoutine, setUserRoutine] = useState(null);
 
   const navigate = useNavigate();
@@ -29,11 +30,12 @@ function RoutineDetail({ isLogin, info }) {
   const des = location.state.description;
   const max_count = location.state.max_count;
   const status = location.state.stauts;
-  const dDay = createMaxCount(Convert(new Date()), end_date);
+  const dDay = createMaxCount(Convert(new Date()), end_date) - 1;
   const [addNowPeople, setAddNowPeople] = useState(now_people_number);
   const [editTitle, setEditTitle] = useState(title);
   const [editDes, setEditDes] = useState(des);
   const [routines, setRoutines] = useState([]);
+  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     axios
@@ -47,6 +49,12 @@ function RoutineDetail({ isLogin, info }) {
         setRoutines([...res.data]);
       })
       .catch((err) => console.log(err));
+    if (dDay < 0) {
+      setIsEnd(true);
+      axios.patch(`http://${process.env.REACT_APP_API_URL}/api/routine/${id}`, {
+        status: "completed",
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -54,8 +62,8 @@ function RoutineDetail({ isLogin, info }) {
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
     if (month < 10) {
-        month = `0${month}`;
-      }
+      month = `0${month}`;
+    }
     let date = now.getDate();
     const today = `${year}-${month}-${date}`;
     axios
@@ -67,13 +75,13 @@ function RoutineDetail({ isLogin, info }) {
       })
       .then((res) => {
         if (res.data === "" && now_people_number < max_people_number) {
-          if( start_date > today ){
+          if (start_date > today) {
             setIsEnterShow(true);
           } else {
             setIsEnterShow(false);
           }
         } else if (res.data.is_host === true) {
-          if(start_date > today){
+          if (start_date > today) {
             setIsDeleteShow(true);
             setIsEditShow(true);
           } else {
@@ -83,6 +91,10 @@ function RoutineDetail({ isLogin, info }) {
         }
         if (res.data !== "") {
           setUserRoutine(res.data);
+          // 나가기 버튼 활성화
+          if (res.data.is_host === false && start_date > today) {
+            setIsComeOutShow(true);
+          }
         }
       });
   }, [addNowPeople]);
@@ -177,15 +189,19 @@ function RoutineDetail({ isLogin, info }) {
     setEditDes(e.target.value);
   };
 
-  const onComeout= () =>{
+  const onClickComeOut = () => {
     axios
-      .delete("http://" + process.env.REACT_APP_API_URL + `/api/user_routine_delete/${id}/${info.pk}`)
-      .then((res)=>{
-        console.log(res)
-        alert("나갔습니다.")
+      .delete(
+        "http://" +
+          process.env.REACT_APP_API_URL +
+          `/api/user_routine_delete/${id}/${info.pk}`
+      )
+      .then((res) => {
+        console.log(res);
+        alert("나갔습니다.");
         navigate("/");
-      })
-  }
+      });
+  };
 
   return (
     <>
@@ -226,9 +242,9 @@ function RoutineDetail({ isLogin, info }) {
             margin: "1em",
           }}
         >
-          <div
-            style={{ fontSize: "36px", fontWeight: "bold" }}
-          >{`D-${dDay}`}</div>
+          <div style={{ fontSize: "36px", fontWeight: "bold" }}>
+            {isEnd ? <>목표 종료</> : <>{`D-${dDay}`}</>}
+          </div>
           <div>
             {start_date} ~ {end_date}
           </div>
@@ -264,7 +280,7 @@ function RoutineDetail({ isLogin, info }) {
           userRoutine={userRoutine}
           start_date={start_date}
           end_date={end_date}
-          isShow={true}
+          isShow={!isEnd}
           animationData={animationData}
         />
       ) : (
@@ -276,7 +292,11 @@ function RoutineDetail({ isLogin, info }) {
             alignItems: "center",
           }}
         >
-          {isEnterShow && <Button variant="success" onClick={onClickEnter}>참가하기</Button>}
+          {isEnterShow && (
+            <Button variant="success" onClick={onClickEnter}>
+              참가하기
+            </Button>
+          )}
         </div>
       )}
       <hr />
@@ -287,16 +307,32 @@ function RoutineDetail({ isLogin, info }) {
               userRoutine={routine}
               start_date={start_date}
               end_date={end_date}
-              isShow={false}
+              isShow={2}
               animationData={otherAnimationData}
             />
           );
         }
       })}
-      {isDeleteShow && <Button variant="success" onClick={onClickDelete}>삭제하기</Button>}
-      {isEditShow && <Button variant="success" onClick={onClickEdit}>수정하기</Button>}
-      {isCompleteShow && <Button variant="success" onClick={onClickComplete}>저장하기</Button>}
-      <Button variant="success" onClick={onComeout}>나가기</Button>
+      {isDeleteShow && (
+        <Button variant="success" onClick={onClickDelete}>
+          삭제하기
+        </Button>
+      )}
+      {isEditShow && (
+        <Button variant="success" onClick={onClickEdit}>
+          수정하기
+        </Button>
+      )}
+      {isCompleteShow && (
+        <Button variant="success" onClick={onClickComplete}>
+          저장하기
+        </Button>
+      )}
+      {isComeOutShow && (
+        <Button variant="success" onClick={onClickComeOut}>
+          나가기
+        </Button>
+      )}
     </>
   );
 }
