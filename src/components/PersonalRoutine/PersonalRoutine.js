@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import Lottie from "react-lottie";
-import profile from "../../img/profile.png";
+
 
 function PersonalRoutine({
   userRoutine,
@@ -26,7 +26,8 @@ function PersonalRoutine({
   const created_at = userRoutine.created_at;
   const updated_at = userRoutine.updated_at;
   const is_host = userRoutine.is_host;
-
+  const profile = userRoutine.profile_url;
+  const username = userRoutine.username;
   const [changeValue, setChangeValue] = useState(
     Math.round((100 * nowCount) / max_count)
   );
@@ -107,7 +108,7 @@ function PersonalRoutine({
                 height={50}
               />
               <div style={{ marginTop: "0.5rem" }}>
-                이름{is_host && <Badge bg="danger">방장</Badge>}
+                {username}{is_host && <Badge bg="danger">방장</Badge>}
               </div>
             </div>
             <div

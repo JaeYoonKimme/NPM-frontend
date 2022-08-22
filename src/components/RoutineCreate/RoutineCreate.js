@@ -97,6 +97,8 @@ function RoutineCreate({ info, setModalIsOpen }) {
             now_count: 0,
             max_count: createMaxCount(Convert(startDate), Convert(endDate)),
             is_host: "True",
+            profile_url: info.profile_url,
+            username: info.username,
           }
         );
         alert("목표 생성이 완료되었습니다!");
@@ -111,6 +113,8 @@ function RoutineCreate({ info, setModalIsOpen }) {
             end_date: Convert(endDate),
             max_count: createMaxCount(Convert(startDate), Convert(endDate)),
             status: "active",
+            profile_url: info.profile_url,
+            username: info.username,
           },
         });
         setModalIsOpen(false);
