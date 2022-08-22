@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, ProgressBar, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  ProgressBar,
+  Button,
+  Badge,
+} from "react-bootstrap";
 import axios from "axios";
 import Lottie from "react-lottie";
 import profile from "../../img/profile.png";
@@ -18,6 +25,7 @@ function PersonalRoutine({
   const max_count = userRoutine.max_count;
   const created_at = userRoutine.created_at;
   const updated_at = userRoutine.updated_at;
+  const is_host = userRoutine.is_host;
 
   const [changeValue, setChangeValue] = useState(
     Math.round((100 * nowCount) / max_count)
@@ -73,9 +81,24 @@ function PersonalRoutine({
   return (
     <Container>
       <Row>
-        <div style={{ margin: "auto" }}>
+        <div
+          style={{
+            margin: "1em auto",
+            maxWidth: "55rem",
+            height: "11rem",
+            backgroundColor: "white",
+            borderRadius: "15px",
+            padding: "1rem",
+          }}
+        >
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <div style={{ width: "4rem", margin: "3rem auto 1rem" }}>
+            <div
+              style={{
+                width: "4rem",
+                margin: "2rem auto 1rem",
+                textAlign: "center",
+              }}
+            >
               <img
                 style={{ borderRadius: "50%" }}
                 src={profile}
@@ -83,6 +106,9 @@ function PersonalRoutine({
                 width={50}
                 height={50}
               />
+              <div style={{ marginTop: "0.5rem" }}>
+                이름{is_host && <Badge bg="danger">방장</Badge>}
+              </div>
             </div>
             <div
               style={{
@@ -96,32 +122,38 @@ function PersonalRoutine({
                   <Lottie options={defaultOptions} height={100} width={100} />
                 </div>
               </div>
-              <div style={{ width: "600px", margin: "0 0 0 60px" }}>
-                <ProgressBar now={changeValue} />
+              <div style={{ width: "600px", marginLeft: "60px" }}>
+                {isShow ? (
+                  <ProgressBar variant="success" now={changeValue} />
+                ) : (
+                  <ProgressBar variant="warning" now={changeValue} />
+                )}
               </div>
             </div>
-            <div style={{ width: "4rem", margin: "5rem auto 1rem" }}>
+            <div style={{ width: "4rem", margin: "3rem 0 1rem 3rem" }}>
               <div>
                 {nowCount} / {max_count}
               </div>
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              margin: "1.5rem",
-              justifyContent: "center",
-            }}
-          >
-            {isShow &&
-              (isButtonShow ? (
-                <Button onClick={onClick}>완료</Button>
-              ) : (
-                <Button variant="secondary" disabled>
-                  완료
-                </Button>
-              ))}
-          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            margin: "0 auto",
+            justifyContent: "center",
+          }}
+        >
+          {isShow &&
+            (isButtonShow ? (
+              <Button variant="success" onClick={onClick}>
+                완료
+              </Button>
+            ) : (
+              <Button variant="secondary" disabled>
+                완료
+              </Button>
+            ))}
         </div>
       </Row>
     </Container>

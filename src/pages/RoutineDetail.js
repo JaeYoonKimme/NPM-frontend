@@ -264,7 +264,7 @@ function RoutineDetail({ isLogin, info }) {
             alignItems: "center",
           }}
         >
-          {isEnterShow && <Button onClick={onClickEnter}>참가하기</Button>}
+          {isEnterShow && <Button variant="success" onClick={onClickEnter}>참가하기</Button>}
         </div>
       )}
       <hr />
@@ -282,9 +282,9 @@ function RoutineDetail({ isLogin, info }) {
         }
       })}
 
-      {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
-      {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
-      {isCompleteShow && <button onClick={onClickComplete}>저장하기</button>}
+      {isDeleteShow && <Button variant="success" onClick={onClickDelete}>삭제하기</Button>}
+      {isEditShow && <Button variant="success" onClick={onClickEdit}>수정하기</Button>}
+      {isCompleteShow && <Button variant="success" onClick={onClickComplete}>저장하기</Button>}
     </>
   );
 }
