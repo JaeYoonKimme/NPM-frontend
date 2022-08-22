@@ -36,6 +36,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [maxCount, setMaxCount] = useState(0);
+  const today = new Date();
 
   const StartSet = () => {
     return (
@@ -43,7 +44,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
         dateFormat="yyyy-MM-dd"
         selected={startDate}
         onChange={(date) => setStartDate(date)}
-        minDate={new Date()}
+        minDate={new Date(today.setDate(today.getDate() + 1))}
       />
     );
   };
@@ -54,10 +55,9 @@ function RoutineCreate({ info, setModalIsOpen }) {
         dateFormat="yyyy-MM-dd"
         selected={endDate}
         onChange={(date) => {
-          // console.log("date", date)
           setEndDate(date);
         }}
-        minDate={startDate}
+        minDate={new Date(today.setDate(today.getDate() + 1))}
       />
     );
   };
@@ -77,49 +77,53 @@ function RoutineCreate({ info, setModalIsOpen }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post("http://" + process.env.REACT_APP_API_URL + "/api/routine/", {
-        title: title,
-        max_people_number: maxPeople,
-        now_people_number: 1,
-        description: description,
-        start_date: Convert(startDate),
-        end_date: Convert(endDate),
-        max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-        status: "active",
-      })
-      .then((res) => {
-        axios.post(
-          "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
-          {
-            user_id: info.pk,
-            routine_id: res.data.id,
-            now_count: 0,
-            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-            is_host: "True",
-            profile_url: info.profile_url,
-            username: info.username,
-          }
-        );
-        alert("목표 생성이 완료되었습니다!");
-        navigate("/detail/" + title, {
-          state: {
-            id: res.data.id,
-            title: title,
-            max_people_number: maxPeople,
-            now_people_number: 1,
-            description: description,
-            start_date: Convert(startDate),
-            end_date: Convert(endDate),
-            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-            status: "active",
-            profile_url: info.profile_url,
-            username: info.username,
-          },
-        });
-        setModalIsOpen(false);
-      })
-      .catch((err) => console.log(err));
+    if (startDate >= endDate) {
+      alert("날짜를 확인해주세요.");
+    } else {
+      axios
+        .post("http://" + process.env.REACT_APP_API_URL + "/api/routine/", {
+          title: title,
+          max_people_number: maxPeople,
+          now_people_number: 1,
+          description: description,
+          start_date: Convert(startDate),
+          end_date: Convert(endDate),
+          max_count: createMaxCount(Convert(startDate), Convert(endDate)),
+          status: "active",
+        })
+        .then((res) => {
+          axios.post(
+            "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+            {
+              user_id: info.pk,
+              routine_id: res.data.id,
+              now_count: 0,
+              max_count: createMaxCount(Convert(startDate), Convert(endDate)),
+              is_host: "True",
+              profile_url: info.profile_url,
+              username: info.username,
+            }
+          );
+          alert("목표 생성이 완료되었습니다!");
+          navigate("/detail/" + title, {
+            state: {
+              id: res.data.id,
+              title: title,
+              max_people_number: maxPeople,
+              now_people_number: 1,
+              description: description,
+              start_date: Convert(startDate),
+              end_date: Convert(endDate),
+              max_count: createMaxCount(Convert(startDate), Convert(endDate)),
+              status: "active",
+              profile_url: info.profile_url,
+              username: info.username,
+            },
+          });
+          setModalIsOpen(false);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
