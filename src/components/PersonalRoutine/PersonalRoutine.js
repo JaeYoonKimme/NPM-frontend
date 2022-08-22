@@ -11,6 +11,7 @@ import axios from "axios";
 import Lottie from "react-lottie";
 
 function PersonalRoutine({
+  info,
   userRoutine,
   start_date,
   end_date,
@@ -32,7 +33,6 @@ function PersonalRoutine({
   );
   const [avocado, setAvocado] = useState((600 * nowCount) / max_count);
   const [isButtonShow, setIsButtonShow] = useState(false);
-
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -54,6 +54,7 @@ function PersonalRoutine({
   };
 
   useEffect(() => {
+    setNowCount(userRoutine.now_count);
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
@@ -71,7 +72,7 @@ function PersonalRoutine({
     } else {
       setIsButtonShow(true);
     }
-  }, []);
+  }, [userRoutine]);
 
   useEffect(() => {
     setChangeValue((100 * nowCount) / max_count);
@@ -133,9 +134,9 @@ function PersonalRoutine({
               </div>
             </div>
             <div style={{ width: "4rem", margin: "3rem 0 3rem 2rem" }}>
-              <div>
+                <div>
                 {nowCount} / {max_count}
-              </div>
+                </div>
             </div>
           </div>
         </div>
