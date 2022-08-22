@@ -96,6 +96,8 @@ function RoutineDetail({ isLogin, info }) {
         now_count: 0,
         max_count: max_count,
         is_host: "False",
+        profile_url: info.profile_url,
+        username: info.username,
       })
       .then((res) => {
         console.log(res);
@@ -274,7 +276,7 @@ function RoutineDetail({ isLogin, info }) {
             alignItems: "center",
           }}
         >
-          {isEnterShow && <Button onClick={onClickEnter}>참가하기</Button>}
+          {isEnterShow && <Button variant="success" onClick={onClickEnter}>참가하기</Button>}
         </div>
       )}
       <hr />
@@ -291,11 +293,10 @@ function RoutineDetail({ isLogin, info }) {
           );
         }
       })}
-
-      {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
-      {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
-      {isCompleteShow && <button onClick={onClickComplete}>저장하기</button>}
-      <button onClick={onComeout}>나가기</button>
+      {isDeleteShow && <Button variant="success onClick={onClickDelete}>삭제하기</Button>}
+      {isEditShow && <Button variant="success" onClick={onClickEdit}>수정하기</Button>}
+      {isCompleteShow && <Button variant="success" onClick={onClickComplete}>저장하기</Button>}
+      <Button variant="success" onClick={onComeout}>나가기</Button>
     </>
   );
 }
