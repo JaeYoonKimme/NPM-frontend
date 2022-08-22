@@ -175,6 +175,16 @@ function RoutineDetail({ isLogin, info }) {
     setEditDes(e.target.value);
   };
 
+  const onComeout= () =>{
+    axios
+      .delete("http://" + process.env.REACT_APP_API_URL + `/api/user_routine_delete/${id}/${info.pk}`)
+      .then((res)=>{
+        console.log(res)
+        alert("나갔습니다.")
+        navigate("/");
+      })
+  }
+
   return (
     <>
       {editInput ? (
@@ -285,6 +295,7 @@ function RoutineDetail({ isLogin, info }) {
       {isDeleteShow && <button onClick={onClickDelete}>삭제하기</button>}
       {isEditShow && <button onClick={onClickEdit}>수정하기</button>}
       {isCompleteShow && <button onClick={onClickComplete}>저장하기</button>}
+      <button onClick={onComeout}>나가기</button>
     </>
   );
 }
