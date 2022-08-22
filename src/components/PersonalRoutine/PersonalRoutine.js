@@ -10,7 +10,6 @@ import {
 import axios from "axios";
 import Lottie from "react-lottie";
 
-
 function PersonalRoutine({
   userRoutine,
   start_date,
@@ -85,19 +84,20 @@ function PersonalRoutine({
         <div
           style={{
             margin: "1em auto",
-            maxWidth: "55rem",
+            maxWidth: "57rem",
             height: "11rem",
             backgroundColor: "white",
             borderRadius: "15px",
-            padding: "1rem",
+            padding: "1rem 2rem",
           }}
         >
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div
               style={{
-                width: "4rem",
-                margin: "2rem auto 1rem",
-                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                margin: "1.5rem auto 1rem",
               }}
             >
               <img
@@ -107,8 +107,9 @@ function PersonalRoutine({
                 width={50}
                 height={50}
               />
-              <div style={{ marginTop: "0.5rem" }}>
-                {username}{is_host && <Badge bg="danger">방장</Badge>}
+              <div style={{ margin: "0.5rem auto 0", textAlign: "center" }}>
+                {username}
+                {is_host && <div><Badge bg="danger">방장</Badge></div>}
               </div>
             </div>
             <div
@@ -131,7 +132,7 @@ function PersonalRoutine({
                 )}
               </div>
             </div>
-            <div style={{ width: "4rem", margin: "3rem 0 1rem 3rem" }}>
+            <div style={{ width: "4rem", margin: "3rem 0 3rem 2rem" }}>
               <div>
                 {nowCount} / {max_count}
               </div>
