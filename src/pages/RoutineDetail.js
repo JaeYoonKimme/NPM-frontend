@@ -293,7 +293,7 @@ function RoutineDetail({ isLogin, info }) {
           );
         }
       })}
-      {isDeleteShow && <Button variant="success onClick={onClickDelete}>삭제하기</Button>}
+      {isDeleteShow && <Button variant="success" onClick={onClickDelete}>삭제하기</Button>}
       {isEditShow && <Button variant="success" onClick={onClickEdit}>수정하기</Button>}
       {isCompleteShow && <Button variant="success" onClick={onClickComplete}>저장하기</Button>}
       <Button variant="success" onClick={onComeout}>나가기</Button>
