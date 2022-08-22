@@ -97,7 +97,7 @@ function RoutineDetail({ isLogin, info }) {
           }
         }
       });
-  }, [addNowPeople]);
+  }, [addNowPeople, info]);
 
   const onClickEnter = () => {
     // POST user_routine data
@@ -292,10 +292,12 @@ function RoutineDetail({ isLogin, info }) {
             alignItems: "center",
           }}
         >
-          {isEnterShow && (
+          {isEnterShow ? (
             <Button variant="success" onClick={onClickEnter}>
               참가하기
             </Button>
+          ) : (
+            <>이 목표에 함께하려면 로그인 하세요!</>
           )}
         </div>
       )}
