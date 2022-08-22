@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, ProgressBar, Button } from "react-bootstrap";
 import axios from "axios";
 import Lottie from "react-lottie";
-import profile from "../../img/profile.png";
+
 
 function PersonalRoutine({
   userRoutine,
@@ -18,7 +18,7 @@ function PersonalRoutine({
   const max_count = userRoutine.max_count;
   const created_at = userRoutine.created_at;
   const updated_at = userRoutine.updated_at;
-
+  const profile = userRoutine.profile_url;
   const [changeValue, setChangeValue] = useState(
     Math.round((100 * nowCount) / max_count)
   );
