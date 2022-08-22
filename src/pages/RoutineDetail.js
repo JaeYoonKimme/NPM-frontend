@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Container, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 import { Convert } from "../components/RoutineCreate/RoutineCreate";
@@ -204,76 +204,118 @@ function RoutineDetail({ isLogin, info }) {
   };
 
   return (
-    <>
-      {editInput ? (
-        <div
-          style={{
-            textAlign: "center",
-            fontSize: "24px",
-            fontWeight: "bold",
-          }}
-        >
-          <div>제목</div>
-          <input type="text" value={editTitle} onChange={changeTitle}></input>
-        </div>
-      ) : (
-        <div
-          style={{
-            textAlign: "center",
-            fontSize: "24px",
-            fontWeight: "bold",
-          }}
-        >
-          {title}
-        </div>
-      )}
-
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "10px",
-            width: "28em",
-            height: "9em",
-            border: "1px solid black",
-            margin: "1em",
-          }}
-        >
-          <div style={{ fontSize: "36px", fontWeight: "bold" }}>
-            {isEnd ? <>목표 종료</> : <>{`D-${dDay}`}</>}
-          </div>
-          <div>
-            {start_date} ~ {end_date}
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "10px",
-            width: "28em",
-            height: "9em",
-            border: "1px solid black",
-            margin: "1em",
-          }}
-        >
+    <Container>
+      <Row xs lg="8" className="justify-content-center">
+        <Col xs lg="4">
           {editInput ? (
-            <div>
-              <div>설명</div>
-              <input type="text" value={editDes} onChange={changeDes}></input>
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
+            >
+              <div>제목</div>
+              <input
+                type="text"
+                value={editTitle}
+                onChange={changeTitle}
+              ></input>
             </div>
           ) : (
-            <div>{des}</div>
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: "24px",
+                fontWeight: "bold",
+                margin: "1.5rem 0",
+              }}
+            >
+              {title}
+            </div>
           )}
-        </div>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        {addNowPeople} / {max_people_number}
-      </div>
+        </Col>
+      </Row>
+      <Row xs lg="8" className="justify-content-center">
+        <Col>
+          <Row className="justify-content-center">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "10px",
+                width: "28em",
+                height: "9em",
+                border: "1px solid black",
+                margin: "0.5em",
+              }}
+            >
+              <div style={{ fontSize: "36px", fontWeight: "bold" }}>
+                {isEnd ? <>목표 종료</> : <>{`D-${dDay}`}</>}
+              </div>
+              <div>
+                {start_date} ~ {end_date}
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "10px",
+                width: "28em",
+                height: "9em",
+                border: "1px solid black",
+                margin: "0.5em",
+              }}
+            >
+              {editInput ? (
+                <div>
+                  <div>설명</div>
+                  <input
+                    type="text"
+                    value={editDes}
+                    onChange={changeDes}
+                  ></input>
+                </div>
+              ) : (
+                <div>{des}</div>
+              )}
+            </div>
+          </Row>
+        </Col>
+      </Row>
+      <Row style={{margin: "0.5em"}} className="justify-content-center">
+        <Col xs lg="2"></Col>
+        <Col
+          xs
+          lg="4"
+          style={{ textAlign: "center" }}
+        >
+          {addNowPeople} / {max_people_number}
+        </Col>
+        <Col xs lg="2">
+          <div style={{display: "flex", justifyContent: "end"}}>
+          {isDeleteShow && (
+            <Button style={{margin: "0 1em"}} variant="success" size="sm" onClick={onClickDelete}>
+              삭제하기
+            </Button>
+          )}
+          {isEditShow && (
+            <Button variant="success" size="sm" onClick={onClickEdit}>
+              수정하기
+            </Button>
+          )}
+          {isCompleteShow && (
+            <Button variant="success" size="sm" onClick={onClickComplete}>
+              저장하기
+            </Button>
+          )}
+          </div>
+        </Col>
+      </Row>
       {userRoutine != null && isLogin ? (
         <PersonalRoutine
           info={info}
@@ -313,27 +355,12 @@ function RoutineDetail({ isLogin, info }) {
           );
         }
       })}
-      {isDeleteShow && (
-        <Button variant="success" onClick={onClickDelete}>
-          삭제하기
-        </Button>
-      )}
-      {isEditShow && (
-        <Button variant="success" onClick={onClickEdit}>
-          수정하기
-        </Button>
-      )}
-      {isCompleteShow && (
-        <Button variant="success" onClick={onClickComplete}>
-          저장하기
-        </Button>
-      )}
       {isComeOutShow && (
         <Button variant="success" onClick={onClickComeOut}>
           나가기
         </Button>
       )}
-    </>
+    </Container>
   );
 }
 
