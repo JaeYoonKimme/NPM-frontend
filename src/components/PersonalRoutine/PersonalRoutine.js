@@ -125,10 +125,10 @@ function PersonalRoutine({
                 </div>
               </div>
               <div style={{ width: "600px", marginLeft: "60px" }}>
-                {isShow ? (
-                  <ProgressBar variant="success" now={changeValue} />
-                ) : (
+                {isShow === 2 ? (
                   <ProgressBar variant="warning" now={changeValue} />
+                ) : (
+                  <ProgressBar variant="success" now={changeValue} />
                 )}
               </div>
             </div>
