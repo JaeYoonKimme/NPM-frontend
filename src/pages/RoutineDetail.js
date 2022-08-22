@@ -96,6 +96,8 @@ function RoutineDetail({ isLogin, info }) {
         now_count: 0,
         max_count: max_count,
         is_host: "False",
+        profile_url: info.profile_url,
+        username: info.username,
       })
       .then((res) => {
         console.log(res);
