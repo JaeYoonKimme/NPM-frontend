@@ -147,7 +147,7 @@ function PersonalRoutine({
             justifyContent: "center",
           }}
         >
-          {isShow !== 2 &&
+          {isShow == 1 &&
             (isButtonShow ? (
               <Button variant="success" onClick={onClick}>
                 완료

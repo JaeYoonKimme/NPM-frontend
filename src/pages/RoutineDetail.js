@@ -8,6 +8,7 @@ import { Convert } from "../components/RoutineCreate/RoutineCreate";
 import createMaxCount from "../components/RoutineCreate/CreateMaxCount";
 import animationData from "../lottie/63272-walking-avocado";
 import otherAnimationData from "../lottie/0z0tZic8y3";
+import { Person, Pencil, PatchCheck, Trash3 } from "react-bootstrap-icons";
 
 function RoutineDetail({ isLogin, info }) {
   const [isEnterShow, setIsEnterShow] = useState(false);
@@ -107,7 +108,7 @@ function RoutineDetail({ isLogin, info }) {
         routine_id: id,
         now_count: 0,
         max_count: max_count,
-        is_host: "False",
+        is_host: "false",
         profile_url: info.profile_url,
         username: info.username,
       })
@@ -152,8 +153,6 @@ function RoutineDetail({ isLogin, info }) {
   };
 
   const onClickComplete = () => {
-    setIsCompleteShow(false);
-    setIsEditShow(true);
     // PATCH routine data (title, description)
     axios
       .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
@@ -176,6 +175,8 @@ function RoutineDetail({ isLogin, info }) {
             status: status,
           },
         });
+        setIsCompleteShow(false);
+        setIsEditShow(true);
         setEditInput(false);
       })
       .catch((err) => console.log(err));
@@ -287,32 +288,52 @@ function RoutineDetail({ isLogin, info }) {
           </Row>
         </Col>
       </Row>
-      <Row style={{margin: "0.5em"}} className="justify-content-center">
+      <Row style={{ margin: "0.5em" }} className="justify-content-center">
         <Col xs lg="2"></Col>
-        <Col
-          xs
-          lg="4"
-          style={{ textAlign: "center" }}
-        >
-          {addNowPeople} / {max_people_number}
+        <Col xs lg="4" style={{ textAlign: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Person width={25} height={25} />
+            <div style={{ marginLeft: "0.3rem" }}>
+              {addNowPeople} / {max_people_number}
+            </div>
+          </div>
         </Col>
         <Col xs lg="2">
-          <div style={{display: "flex", justifyContent: "end"}}>
-          {isDeleteShow && (
-            <Button style={{margin: "0 1em"}} variant="success" size="sm" onClick={onClickDelete}>
-              삭제하기
-            </Button>
-          )}
-          {isEditShow && (
-            <Button variant="success" size="sm" onClick={onClickEdit}>
-              수정하기
-            </Button>
-          )}
-          {isCompleteShow && (
-            <Button variant="success" size="sm" onClick={onClickComplete}>
-              저장하기
-            </Button>
-          )}
+          <div style={{ display: "flex", justifyContent: "end" }}>
+            {isEditShow && (
+              <Button
+                style={{ margin: "0 1em", width: "5rem", height: "2rem" }}
+                variant="success"
+                size="sm"
+                onClick={onClickEdit}
+              >
+                <Pencil />
+                {" 수정"}
+              </Button>
+            )}
+            {isCompleteShow && (
+              <Button
+                style={{ margin: "0 1em", width: "5rem", height: "2rem"}}
+                variant="success"
+                size="sm"
+                onClick={onClickComplete}
+              >
+                <PatchCheck />
+                {" 저장"}
+              </Button>
+            )}
+            {isDeleteShow && (
+              <Button style={{width: "5rem", height: "2rem"}} variant="danger" size="sm" onClick={onClickDelete}>
+                <Trash3 />
+                {" 삭제"}
+              </Button>
+            )}
           </div>
         </Col>
       </Row>
