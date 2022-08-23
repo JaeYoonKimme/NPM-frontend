@@ -27,7 +27,7 @@ function RoutineList({ isLogin, info }) {
     axios
       .get("http://"+process.env.REACT_APP_API_URL+"/api/routine/", {
         params: {
-          status: ["ready","active"]
+          status: "ready, active"
         },
       })
       .then((res) => {
