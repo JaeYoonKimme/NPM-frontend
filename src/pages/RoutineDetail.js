@@ -36,7 +36,7 @@ function RoutineDetail({info}) {
 
   useEffect(() => {
     axios
-      .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
+      .get("http://" + process.env.API_URL + "/api/user_routine/", {
         params: {
           user_id: info.pk,
           routine_id: id,
@@ -59,7 +59,7 @@ function RoutineDetail({info}) {
   const onClickEnter = () => {
     // POST user_routine data
     axios
-      .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
+      .post("http://" + process.env.API_URL + "/api/user_routine/", {
         user_id: info.pk,
         routine_id: id,
         now_count: 0,
@@ -80,7 +80,7 @@ function RoutineDetail({info}) {
 
     // PATCH routine data (now_people_number)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+      .patch("http://" + process.env.API_URL + `/api/routine/${id}`, {
         now_people_number: now_people_number + 1,
       })
       .then((res) => console.log(res))
@@ -90,7 +90,7 @@ function RoutineDetail({info}) {
   const onClickDelete = () => {
     // PATCH routine data (status)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+      .patch("http://" + process.env.API_URL + `/api/routine/${id}`, {
         status: "deleted",
       })
       .then(() => {
@@ -111,7 +111,7 @@ function RoutineDetail({info}) {
     setIsEditShow(true);
     // PATCH routine data (title, description)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+      .patch("http://" + process.env.API_URL + `/api/routine/${id}`, {
         title: editTitle,
         description: editDes,
       })

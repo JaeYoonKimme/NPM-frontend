@@ -78,7 +78,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
   const onSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://" + process.env.REACT_APP_API_URL + "/api/routine/", {
+      .post("http://" + process.env.API_URL + "/api/routine/", {
         title: title,
         max_people_number: maxPeople,
         now_people_number: 1,
@@ -90,7 +90,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
       })
       .then((res) => {
         axios.post(
-          "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+          "http://" + process.env.API_URL + "/api/user_routine/",
           {
             user_id: info.pk,
             routine_id: res.data.id,

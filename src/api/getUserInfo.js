@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 export const getUserInfo = async () => {
-    const API_URL = process.env.REACT_APP_API_URL;
+    const API_URL = process.env.API_URL;
     var info = ""
     try {
         const path = 'dj-rest-auth/user/';

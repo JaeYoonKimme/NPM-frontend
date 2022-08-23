@@ -14,7 +14,7 @@ function RoutineList({ info }) {
 
   useEffect(() => {
     axios
-      .get("http://"+process.env.REACT_APP_API_URL+"/api/routine/", {
+      .get("http://"+process.env.API_URL+"/api/routine/", {
         params: {
           status: "active"
         },
