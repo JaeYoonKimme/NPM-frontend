@@ -7,7 +7,7 @@ export const getUserInfo = async () => {
     var info = ""
     try {
         const path = 'dj-rest-auth/user/';
-        const response = await axios.get(`http://${API_URL}/${path}`, {
+        const response = await axios.get(`https://${API_URL}/${path}`, {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -24,7 +24,7 @@ export const getUserInfo = async () => {
 
     try {
         const path = 'api/social_account_profile';
-        const response = await axios.get(`http://${API_URL}/${path}/${info.pk}`, {
+        const response = await axios.get(`https://${API_URL}/${path}/${info.pk}`, {
             headers: {
                 "Content-Type": "application/json"
             },

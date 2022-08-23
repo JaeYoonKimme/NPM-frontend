@@ -16,7 +16,7 @@ function Mypage({isLogin, info}) {
 
   useEffect(() => {
     axios
-      .get("http://"+process.env.REACT_APP_API_URL+`/api/user_routine_list/${info.pk}`, {
+      .get("https://"+process.env.REACT_APP_API_URL+`/api/user_routine_list/${info.pk}`, {
       })
       .then((res) => {
         setRoutines([...res.data]);

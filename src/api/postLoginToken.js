@@ -6,7 +6,7 @@ export const postLoginToken = async token => {
 
     try {
        const response = await axios.post(
-        `http://${API_URL}/${path}`,
+        `https://${API_URL}/${path}`,
         {
             "access_token": token,
         },

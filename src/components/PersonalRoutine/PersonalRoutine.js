@@ -44,7 +44,7 @@ function PersonalRoutine({
 
   const onClick = () => {
     axios.patch(
-      `http://${process.env.REACT_APP_API_URL}/api/user_routine/${userRoutine.id}`,
+      `https://${process.env.REACT_APP_API_URL}/api/user_routine/${userRoutine.id}`,
       {
         now_count: nowCount + 1,
       }

@@ -81,7 +81,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
       alert("날짜를 확인해주세요.");
     } else {
       axios
-        .post("http://" + process.env.REACT_APP_API_URL + "/api/routine/", {
+        .post("https://" + process.env.REACT_APP_API_URL + "/api/routine/", {
           title: title,
           max_people_number: maxPeople,
           now_people_number: 1,
@@ -93,7 +93,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
         })
         .then((res) => {
           axios.post(
-            "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+            "https://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
             {
               user_id: info.pk,
               routine_id: res.data.id,

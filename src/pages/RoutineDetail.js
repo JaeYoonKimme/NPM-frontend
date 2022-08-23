@@ -40,7 +40,7 @@ function RoutineDetail({ isLogin, info }) {
 
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_API_URL}/api/all_user_routines/`, {
+      .get(`https://${process.env.REACT_APP_API_URL}/api/all_user_routines/`, {
         params: {
           routine_id: id,
         },
@@ -52,7 +52,7 @@ function RoutineDetail({ isLogin, info }) {
       .catch((err) => console.log(err));
     if (dDay < 0) {
       setIsEnd(true);
-      axios.patch(`http://${process.env.REACT_APP_API_URL}/api/routine/${id}`, {
+      axios.patch(`https://${process.env.REACT_APP_API_URL}/api/routine/${id}`, {
         status: "completed",
       });
     }
@@ -68,7 +68,7 @@ function RoutineDetail({ isLogin, info }) {
     let date = now.getDate();
     const today = `${year}-${month}-${date}`;
     axios
-      .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
+      .get("https://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         params: {
           user_id: info.pk,
           routine_id: id,
@@ -103,7 +103,7 @@ function RoutineDetail({ isLogin, info }) {
   const onClickEnter = () => {
     // POST user_routine data
     axios
-      .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
+      .post("https://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         user_id: info.pk,
         routine_id: id,
         now_count: 0,
@@ -126,7 +126,7 @@ function RoutineDetail({ isLogin, info }) {
 
     // PATCH routine data (now_people_number)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+      .patch("https://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
         now_people_number: now_people_number + 1,
       })
       .then((res) => console.log(res))
@@ -155,7 +155,7 @@ function RoutineDetail({ isLogin, info }) {
   const onClickComplete = () => {
     // PATCH routine data (title, description)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
+      .patch("https://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
         title: editTitle,
         description: editDes,
       })
@@ -193,7 +193,7 @@ function RoutineDetail({ isLogin, info }) {
   const onClickComeOut = () => {
     axios
       .delete(
-        "http://" +
+        "https://" +
           process.env.REACT_APP_API_URL +
           `/api/user_routine_delete/${id}/${info.pk}`
       )
