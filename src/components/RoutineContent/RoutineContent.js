@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Col, Row, CardGroup, ListGroup } from 'react-bootstrap';
+import Badge from 'react-bootstrap/Badge';
+
 
 function RoutineContent({ routine }) {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ function RoutineContent({ routine }) {
         description: routine.description,
         now_count: routine.now_count,
         max_count: routine.max_count,
+        status: routine.status,
       },
     });
   };
@@ -26,6 +29,17 @@ function RoutineContent({ routine }) {
           <Card.Title>{routine.title}</Card.Title><br />
           <Card.Subtitle className="mb-2 text-muted">{routine.start_date} ~ {routine.end_date}</Card.Subtitle>
           <Card.Text>{routine.description}</Card.Text>
+          {
+          routine.status==="active" ?(
+            <Badge pill bg="danger" text="light">
+            진행중
+           </Badge>
+          ) : (
+            <Badge pill bg="success" text="light">
+            대기중
+            </Badge>
+          )
+          }
           <Row>
             <Col xs={7}>
               참여 인원 : {routine.now_people_number} / {routine.max_people_number}
