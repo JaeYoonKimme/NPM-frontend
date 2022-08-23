@@ -89,7 +89,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
           start_date: Convert(startDate),
           end_date: Convert(endDate),
           max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-          status: "active",
+          status: "ready",
         })
         .then((res) => {
           axios.post(
