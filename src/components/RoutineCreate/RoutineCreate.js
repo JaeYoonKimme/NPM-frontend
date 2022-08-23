@@ -89,7 +89,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
           start_date: Convert(startDate),
           end_date: Convert(endDate),
           max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-          status: "active",
+          status: "ready",
         })
         .then((res) => {
           axios.post(
@@ -99,7 +99,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
               routine_id: res.data.id,
               now_count: 0,
               max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-              is_host: "True",
+              is_host: "true",
               profile_url: info.profile_url,
               username: info.username,
             }
@@ -115,7 +115,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
               start_date: Convert(startDate),
               end_date: Convert(endDate),
               max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-              status: "active",
+              status: "ready",
               profile_url: info.profile_url,
               username: info.username,
             },
