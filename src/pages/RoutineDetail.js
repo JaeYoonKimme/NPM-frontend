@@ -46,7 +46,6 @@ function RoutineDetail({ isLogin, info }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setRoutines([...res.data]);
       })
       .catch((err) => console.log(err));
@@ -59,14 +58,6 @@ function RoutineDetail({ isLogin, info }) {
   }, []);
 
   useEffect(() => {
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth() + 1;
-    if (month < 10) {
-      month = `0${month}`;
-    }
-    let date = now.getDate();
-    const today = `${year}-${month}-${date}`;
     axios
       .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
         params: {
@@ -75,27 +66,28 @@ function RoutineDetail({ isLogin, info }) {
         },
       })
       .then((res) => {
-        if (res.data === "" && now_people_number < max_people_number) {
-          if (start_date > today) {
-            setIsEnterShow(true);
-          } else {
-            setIsEnterShow(false);
-          }
-        } else if (res.data.is_host === true) {
-          if (start_date > today) {
-            setIsDeleteShow(true);
-            setIsEditShow(true);
-          } else {
-            setIsDeleteShow(false);
-            setIsEditShow(false);
-          }
-        }
-        if (res.data !== "") {
+        console.log(res.data);
+        if (res.data != "") {
           setUserRoutine(res.data);
-          // 나가기 버튼 활성화
-          if (res.data.is_host === false && start_date > today) {
-            setIsComeOutShow(true);
+        }
+        if (status == "ready") {
+          if (res.data === "") {
+            if (now_people_number < max_people_number) {
+              setIsEnterShow(true);
+            }
+          } else {
+            if (res.data.is_host === true) {
+              setIsDeleteShow(true);
+              setIsEditShow(true);
+            } else {
+              setIsComeOutShow(true);
+            }
           }
+        } else {
+          setIsEnterShow(false);
+          setIsDeleteShow(false);
+          setIsEditShow(false);
+          setIsComeOutShow(false);
         }
       });
   }, [addNowPeople, info]);
@@ -203,6 +195,8 @@ function RoutineDetail({ isLogin, info }) {
         navigate("/");
       });
   };
+
+  console.log(isLogin);
 
   return (
     <Container>
@@ -319,7 +313,7 @@ function RoutineDetail({ isLogin, info }) {
             )}
             {isCompleteShow && (
               <Button
-                style={{ margin: "0 1em", width: "5rem", height: "2rem"}}
+                style={{ margin: "0 1em", width: "5rem", height: "2rem" }}
                 variant="success"
                 size="sm"
                 onClick={onClickComplete}
@@ -329,7 +323,12 @@ function RoutineDetail({ isLogin, info }) {
               </Button>
             )}
             {isDeleteShow && (
-              <Button style={{width: "5rem", height: "2rem"}} variant="danger" size="sm" onClick={onClickDelete}>
+              <Button
+                style={{ width: "5rem", height: "2rem" }}
+                variant="danger"
+                size="sm"
+                onClick={onClickDelete}
+              >
                 <Trash3 />
                 {" 삭제"}
               </Button>
@@ -355,10 +354,12 @@ function RoutineDetail({ isLogin, info }) {
             alignItems: "center",
           }}
         >
-          {isEnterShow ? (
-            <Button variant="success" onClick={onClickEnter}>
-              참가하기
-            </Button>
+          {isLogin ? (
+            isEnterShow && (
+              <Button variant="success" onClick={onClickEnter}>
+                참가하기
+              </Button>
+            )
           ) : (
             <>이 목표에 함께하려면 로그인 하세요!</>
           )}
