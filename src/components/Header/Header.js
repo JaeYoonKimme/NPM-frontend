@@ -13,7 +13,7 @@ import { React, useEffect } from "react";
 import { postLoginToken } from "../../api/postLoginToken";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
-
+import { getUserInfo } from "../../api/getUserInfo"
 function Header({ isLogin, setIsLogin, info, setInfo }) {
   const client_id = process.env.REACT_APP_CLIENT_ID;
   const navigate = useNavigate();
@@ -21,13 +21,15 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
   const onGoogleSignIn = async (res) => {
     const result = await postLoginToken(res.accessToken, setIsLogin);
     setIsLogin(result);
+    const newinfo = await getUserInfo();
+    setInfo(newinfo);
   };
-
+  /*
   useEffect(() => {
     if (!isLogin) return;
     navigate("/");
   }, [isLogin]);
-
+  */
   useEffect(() => {
     function start() {
       gapi.client.init({
