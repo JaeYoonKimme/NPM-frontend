@@ -5,11 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(https://cdn.pixabay.com/photo/2015/09/04/19/32/landscape-922581_1280.png)!important;
+  background-image: url(/public/wallpaperbetter.jpg)!important;
+  background-repeat: no-repeat;
+  background-size: cover;
 
 }
 
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url(/src/fonts/Cafe24SsurroundAir.ttf) format("truetype")
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Cafe24SsurroundAir"!important;
 }

@@ -6,6 +6,7 @@ import RoutineDetail from "./pages/RoutineDetail";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
 import { getUserInfo } from "./api/getUserInfo";
+import './index.css';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
