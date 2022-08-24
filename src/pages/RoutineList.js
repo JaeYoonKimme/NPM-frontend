@@ -22,7 +22,6 @@ function RoutineList({ isLogin, info }) {
     { name: '대기중', value: '2' },
   ];
 
-
   useEffect(() => {
     axios
       .get("https://"+process.env.REACT_APP_API_URL+"/api/routine/", {
