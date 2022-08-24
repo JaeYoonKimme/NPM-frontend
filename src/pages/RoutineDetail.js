@@ -30,7 +30,7 @@ function RoutineDetail({ isLogin, info }) {
   const end_date = location.state.end_date;
   const des = location.state.description;
   const max_count = location.state.max_count;
-  const status = location.state.stauts;
+  const status = location.state.status;
   const dDay = createMaxCount(Convert(new Date()), end_date) - 1;
   const [addNowPeople, setAddNowPeople] = useState(now_people_number);
   const [editTitle, setEditTitle] = useState(title);
@@ -67,21 +67,28 @@ function RoutineDetail({ isLogin, info }) {
       })
       .then((res) => {
         console.log(res.data);
-        if (res.data != "") {
-          setUserRoutine(res.data);
-        }
-        if (status == "ready") {
-          if (res.data === "") {
-            if (now_people_number < max_people_number) {
-              setIsEnterShow(true);
+        if (isLogin) {
+          if (res.data != "") {
+            setUserRoutine(res.data);
+          }
+          if (status == "ready") {
+            if (res.data == "") {
+              if (now_people_number < max_people_number) {
+                setIsEnterShow(true);
+              }
+            } else {
+              if (res.data.is_host === true) {
+                setIsDeleteShow(true);
+                setIsEditShow(true);
+              } else {
+                setIsComeOutShow(true);
+              }
             }
           } else {
-            if (res.data.is_host === true) {
-              setIsDeleteShow(true);
-              setIsEditShow(true);
-            } else {
-              setIsComeOutShow(true);
-            }
+            setIsEnterShow(false);
+            setIsDeleteShow(false);
+            setIsEditShow(false);
+            setIsComeOutShow(false);
           }
         } else {
           setIsEnterShow(false);
@@ -89,6 +96,7 @@ function RoutineDetail({ isLogin, info }) {
           setIsEditShow(false);
           setIsComeOutShow(false);
         }
+        
       });
   }, [addNowPeople, info]);
 
@@ -195,8 +203,6 @@ function RoutineDetail({ isLogin, info }) {
         navigate("/");
       });
   };
-
-  console.log(isLogin);
 
   return (
     <Container>
@@ -355,10 +361,12 @@ function RoutineDetail({ isLogin, info }) {
           }}
         >
           {isLogin ? (
-            isEnterShow && (
+            isEnterShow ? (
               <Button variant="success" onClick={onClickEnter}>
                 참가하기
               </Button>
+            ) : (
+              <>진행중인 목표입니다.</>
             )
           ) : (
             <>이 목표에 함께하려면 로그인 하세요!</>
