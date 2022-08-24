@@ -6,7 +6,7 @@ import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 import { Convert } from "../components/RoutineCreate/RoutineCreate";
 import createMaxCount from "../components/RoutineCreate/CreateMaxCount";
-import animationData from "../lottie/63272-walking-avocado";
+import animationData from "../lottie/90159-cat-hero";
 import otherAnimationData from "../lottie/0z0tZic8y3";
 import { Person, Pencil, PatchCheck, Trash3 } from "react-bootstrap-icons";
 
