@@ -8,7 +8,13 @@ import { Convert } from "../components/RoutineCreate/RoutineCreate";
 import createMaxCount from "../components/RoutineCreate/CreateMaxCount";
 import animationData from "../lottie/63272-walking-avocado";
 import otherAnimationData from "../lottie/0z0tZic8y3";
-import { Person, Pencil, PatchCheck, Trash3 } from "react-bootstrap-icons";
+import {
+  Person,
+  Pencil,
+  PatchCheck,
+  Trash3,
+  BoxArrowRight,
+} from "react-bootstrap-icons";
 
 function RoutineDetail({ isLogin, info }) {
   const [isEnterShow, setIsEnterShow] = useState(false);
@@ -96,7 +102,6 @@ function RoutineDetail({ isLogin, info }) {
           setIsEditShow(false);
           setIsComeOutShow(false);
         }
-        
       });
   }, [addNowPeople, info]);
 
@@ -308,35 +313,72 @@ function RoutineDetail({ isLogin, info }) {
           <div style={{ display: "flex", justifyContent: "end" }}>
             {isEditShow && (
               <Button
-                style={{ margin: "0 1em", width: "5rem", height: "2rem" }}
+                style={{
+                  display: "flex",
+                  margin: "0 1em",
+                  width: "5rem",
+                  height: "2rem",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 variant="success"
                 size="sm"
                 onClick={onClickEdit}
               >
                 <Pencil />
-                {" 수정"}
+                <div style={{ marginLeft: "0.3rem" }}>수정</div>
               </Button>
             )}
             {isCompleteShow && (
               <Button
-                style={{ margin: "0 1em", width: "5rem", height: "2rem" }}
+                style={{
+                  display: "flex",
+                  margin: "0 1em",
+                  width: "5rem",
+                  height: "2rem",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 variant="success"
                 size="sm"
                 onClick={onClickComplete}
               >
                 <PatchCheck />
-                {" 저장"}
+                <div style={{ marginLeft: "0.3rem" }}>저장</div>
               </Button>
             )}
             {isDeleteShow && (
               <Button
-                style={{ width: "5rem", height: "2rem" }}
+                style={{
+                  display: "flex",
+                  width: "5rem",
+                  height: "2rem",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 variant="danger"
                 size="sm"
                 onClick={onClickDelete}
               >
                 <Trash3 />
-                {" 삭제"}
+                <div style={{ marginLeft: "0.3rem" }}>삭제</div>
+              </Button>
+            )}
+            {isComeOutShow && (
+              <Button
+                style={{
+                  display: "flex",
+                  width: "5.5rem",
+                  height: "2rem",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                variant="danger"
+                size="sm"
+                onClick={onClickComeOut}
+              >
+                <BoxArrowRight />
+                <div style={{ marginLeft: "0.3rem" }}>나가기</div>
               </Button>
             )}
           </div>
@@ -387,11 +429,6 @@ function RoutineDetail({ isLogin, info }) {
           );
         }
       })}
-      {isComeOutShow && (
-        <Button variant="success" onClick={onClickComeOut}>
-          나가기
-        </Button>
-      )}
     </Container>
   );
 }

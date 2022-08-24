@@ -1,8 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Col, Row, CardGroup, ListGroup } from 'react-bootstrap';
-import Badge from 'react-bootstrap/Badge';
-
+import {
+  Card,
+  Button,
+  Col,
+  Row,
+  CardGroup,
+  ListGroup,
+  Badge,
+} from "react-bootstrap";
+import { Person } from "react-bootstrap-icons";
 
 function RoutineContent({ routine }) {
   const navigate = useNavigate();
@@ -24,28 +31,44 @@ function RoutineContent({ routine }) {
   };
   return (
     <>
-      <Card style={{ width: '23rem'}}>
+      <Card style={{ width: "23rem", padding: "0.5rem" }}>
         <Card.Body>
-          <Card.Title>{routine.title}</Card.Title><br />
-          <Card.Subtitle className="mb-2 text-muted">{routine.start_date} ~ {routine.end_date}</Card.Subtitle>
-          <Card.Text>{routine.description}</Card.Text>
-          {
-          routine.status==="active" ?(
-            <Badge pill bg="danger" text="light">
-            진행중
-           </Badge>
-          ) : (
-            <Badge pill bg="success" text="light">
-            대기중
-            </Badge>
-          )
-          }
           <Row>
-            <Col xs={7}>
-              참여 인원 : {routine.now_people_number} / {routine.max_people_number}
+            <Col xs lg="9">
+              <Card.Title style={{ fontWeight: "bold", marginBottom: "1rem" }}>
+                {routine.title}
+              </Card.Title>
             </Col>
-            <Col xs={5}>
-              <Button variant="outline-warning" onClick={move}>들어가기</Button>
+            <Col xs lg="3" style={{ display: "flex", justifyContent: "end" }}>
+              {routine.status === "active" ? (
+                <div>
+                  <Badge pill bg="danger" text="light">
+                    진행중
+                  </Badge>
+                </div>
+              ) : (
+                <div>
+                  <Badge pill bg="success" text="light">
+                    대기중
+                  </Badge>
+                </div>
+              )}
+            </Col>
+          </Row>
+
+          <Card.Subtitle className="mb-2 text-muted">
+            {routine.start_date} ~ {routine.end_date}
+          </Card.Subtitle>
+          <Card.Text>{routine.description}</Card.Text>
+          <Row>
+            <Col xs lg={8} style={{ marginTop: "0.5rem" }}>
+              <Person width={25} height={25} /> {routine.now_people_number} /
+              {routine.max_people_number}
+            </Col>
+            <Col xs lg={4} style={{ display: "flex", justifyContent: "end" }}>
+              <Button variant="outline-warning" onClick={move}>
+                들어가기
+              </Button>
             </Col>
           </Row>
         </Card.Body>
