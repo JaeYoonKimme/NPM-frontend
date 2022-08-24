@@ -11,10 +11,10 @@ import {
   Col,
   Row,
   Container,
+  ButtonGroup,
+  Badge,
+  ToggleButton
 } from "react-bootstrap";
-import Badge from "react-bootstrap/Badge";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 function RoutineList({ isLogin, info }) {
   const [routines, setRoutines] = useState([]);
@@ -42,9 +42,9 @@ function RoutineList({ isLogin, info }) {
   }, []);
 
   return (
-    <Container>
-      <div style={{ marginTop: 20 }}>
-        <div style={{ marginLeft: 20 }}>
+    <Container style={{ width: "50rem" }}>
+      <Row>
+        <Col xs lg="3" style={{margin: '1.5rem 0'}}>
           <ButtonGroup>
             {radios.map((radio, idx) => (
               <ToggleButton
@@ -61,19 +61,15 @@ function RoutineList({ isLogin, info }) {
               </ToggleButton>
             ))}
           </ButtonGroup>
-        </div>
-
-        {/* <span onclick= "alert('tt')" class="label label-default">전체보기</span>
-    <span onclick = {setBadge(true)} class="label label-default">진행중</span> */}
-
-        <Col md={{ span: 10, offset: 10 }}>
+        </Col>
+        <Col xs lg="6"/>
+        <Col xs lg="3" style={{ display:'flex', justifyContent: 'end', margin: '1.5rem 0'}}>
           {isLogin && (
             <Button variant="success" onClick={() => setModalIsOpen(true)}>
               목표 만들기
             </Button>
           )}
         </Col>
-      </div>
       <Modal show={modalIsOpen} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>목표 생성하기</Modal.Title>
@@ -87,7 +83,7 @@ function RoutineList({ isLogin, info }) {
           <Row xs={1} md={2} className="g-4">
             {routines.map((routine, idx) => {
               if (routine.status === "ready") {
-                return <RoutineContent key={idx} routine={routine} />;
+                return <Col><RoutineContent key={idx} routine={routine} /></Col>;
               }
             })}
           </Row>
@@ -95,35 +91,14 @@ function RoutineList({ isLogin, info }) {
           <Row xs={1} md={2} className="g-4">
             {routines.map((routine, idx) => {
               if (routine.status === "active") {
-                return <RoutineContent key={idx} routine={routine} />;
+                return <Col><RoutineContent key={idx} routine={routine} /></Col>;
               }
             })}
           </Row>
         )}
       </Container>
+      </Row>
     </Container>
-
-    /* <Container>
-            <Row xs={1} md={2} className="g-4">
-                {routines.map((routine, idx) => {
-                  if(routine.status === "completed") {
-                    return <RoutineContent key={idx} routine={routine} />
-                  }
-                })}
-            </Row>
-          </Container> */
-
-    // return (
-    //   <Container>
-    //      <Row xs={1} md={2} className="g-4">
-    //          {routines.map((routine, idx) => {
-    //            if(routine.status === "active") {
-    //              return <RoutineContent key={idx} routine={routine} />
-    //            }
-    //          })}
-    //      </Row>
-    //    </Container>
-    //   )
   );
 }
 

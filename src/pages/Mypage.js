@@ -1,11 +1,8 @@
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import RoutineContent from "../components/RoutineContent/RoutineContent";
 import axios from "axios";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
+import RoutineContent from "../components/RoutineContent/RoutineContent";
 
 function Mypage({ isLogin, info }) {
   const navigate = useNavigate();
@@ -45,7 +42,7 @@ function Mypage({ isLogin, info }) {
                     routine.status === "active" ||
                     routine.status === "ready"
                   ) {
-                    return <RoutineContent key={idx} routine={routine} />;
+                    return <Col><RoutineContent key={idx} routine={routine} /></Col>;
                   }
                 })}
               </Row>
@@ -56,7 +53,7 @@ function Mypage({ isLogin, info }) {
               <Row xs={1} md={2} className="g-4">
                 {routines.map((routine, idx) => {
                   if (routine.status === "completed") {
-                    return <RoutineContent key={idx} routine={routine} />;
+                    return <Col><RoutineContent key={idx} routine={routine} /></Col>;
                   }
                 })}
               </Row>

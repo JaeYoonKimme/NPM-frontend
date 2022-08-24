@@ -79,8 +79,6 @@ function PersonalRoutine({
     setAvocado((600 * nowCount) / max_count);
   }, [nowCount]);
 
-  console.log(userRoutine)
-
   return (
     <Container>
       <Row>
