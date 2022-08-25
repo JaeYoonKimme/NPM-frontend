@@ -24,7 +24,7 @@ export const postLoginToken = async token => {
         console.log(response2.data)
 
 
-        return true;
+        return headers;
     } catch (error) {
         console.error('postLoginToken Error : ', error.message);
         return false;

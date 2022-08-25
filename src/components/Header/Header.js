@@ -20,8 +20,10 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
 
   const onGoogleSignIn = async (res) => {
     const result = await postLoginToken(res.accessToken, setIsLogin);
-    setIsLogin(result);
-    const newinfo = await getUserInfo();
+    if (result) {
+      setIsLogin(result);
+    }
+    const newinfo = await getUserInfo(result);
     setInfo(newinfo);
   };
   /*

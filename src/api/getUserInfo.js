@@ -3,15 +3,13 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.crossDomain = true;
  
-export const getUserInfo = async () => {
+export const getUserInfo = async (headers) => {
     const API_URL = process.env.REACT_APP_API_URL;
     var info = ""
     try {
         const path = 'dj-rest-auth/user/';
         const response = await axios.get(`https://${API_URL}/${path}`, {
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: headers,
         },
         {withCredentials: true});
 
