@@ -51,10 +51,6 @@ function App() {
       />
       <Routes>
         <Route
-          path="/"
-          element={<Landing header={header} />}
-        />
-        <Route
           path="/list"
           element={<RoutineList isLogin={isLogin} info={info} header={header} />}
         />
