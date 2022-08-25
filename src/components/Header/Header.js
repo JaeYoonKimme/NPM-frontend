@@ -13,7 +13,7 @@ import { React, useEffect } from "react";
 import { postLoginToken } from "../../api/postLoginToken";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
-import { getUserInfo } from "../../api/getUserInfo"
+import { getUserInfo } from "../../api/getUserInfo";
 function Header({ isLogin, setIsLogin, info, setInfo }) {
   const client_id = process.env.REACT_APP_CLIENT_ID;
   const navigate = useNavigate();
@@ -24,12 +24,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
     const newinfo = await getUserInfo();
     setInfo(newinfo);
   };
-  /*
-  useEffect(() => {
-    if (!isLogin) return;
-    navigate("/");
-  }, [isLogin]);
-  */
+
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -47,12 +42,12 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
   };
 
   return (
-    <Navbar bg="warning" variant="light">
+    <Navbar bg="warning" variant="light" style={{ height: "4rem" }}>
       <Container>
         <Col lg="4"></Col>
         <Col lg="4">
           <Nav className="justify-content-around">
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/" style={{ fontWeight: "bold" }}>
               <img
                 alt="logo"
                 src="/logo.png"
@@ -76,7 +71,8 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
                     style={{ borderRadius: "50%" }}
                     width="30"
                     height="30"
-                  />}
+                  />
+                }
               >
                 <NavDropdown.Item as={Link} to="/profile">
                   마이페이지
