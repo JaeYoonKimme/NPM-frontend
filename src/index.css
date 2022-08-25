@@ -7,7 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(/Users/groo/Desktop/NPM-frontend/public/pattern.png)!important;
+  background-image: url(/public/pattern.png)!important;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
