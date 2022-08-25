@@ -1,7 +1,10 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.crossDomain = true
+
+document.cookie = 'same-site-cookie=foo; SameSite=Lax';
+document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
+
 
 export const getLogout = async ({setInfo}) => {
     const API_URL = process.env.REACT_APP_API_URL;
