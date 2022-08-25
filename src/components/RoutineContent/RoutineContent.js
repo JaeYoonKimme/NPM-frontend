@@ -62,7 +62,7 @@ function RoutineContent({ routine }) {
           <Card.Text>{routine.description}</Card.Text>
           <Row>
             <Col xs lg={8} style={{ marginTop: "0.5rem" }}>
-              <Person width={25} height={25} /> {routine.now_people_number} /
+              <Person width={25} height={25} /> {routine.now_people_number} /{" "}
               {routine.max_people_number}
             </Col>
             <Col xs lg={4} style={{ display: "flex", justifyContent: "end" }}>

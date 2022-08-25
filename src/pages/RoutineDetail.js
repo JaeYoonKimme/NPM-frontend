@@ -219,6 +219,7 @@ function RoutineDetail({ isLogin, info }) {
                 textAlign: "center",
                 fontSize: "24px",
                 fontWeight: "bold",
+                padding: "0.5rem",
               }}
             >
               <div>제목</div>
@@ -226,6 +227,12 @@ function RoutineDetail({ isLogin, info }) {
                 type="text"
                 value={editTitle}
                 onChange={changeTitle}
+                style={{
+                  border: "1px solid",
+                  borderRadius: 5,
+                  boxShadow: "none",
+                  padding: "0.5rem",
+                }}
               ></input>
             </div>
           ) : (
@@ -284,6 +291,13 @@ function RoutineDetail({ isLogin, info }) {
                     type="text"
                     value={editDes}
                     onChange={changeDes}
+                    style={{
+                      border: "1px solid",
+                      borderRadius: 5,
+                      boxShadow: "none",
+                      height: "3rem",
+                      width: "15rem",
+                    }}
                   ></input>
                 </div>
               ) : (
