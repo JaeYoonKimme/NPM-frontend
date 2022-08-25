@@ -42,7 +42,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
   };
 
   return (
-    <Navbar bg="warning" variant="light" style={{ height: "4rem" }}>
+    <Navbar variant="light" style={{ height: "5rem" }}>
       <Container>
         <Col lg="4"></Col>
         <Col lg="4">
