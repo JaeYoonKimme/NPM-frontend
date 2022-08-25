@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Button, Badge } from "react-bootstrap";
 import axios from "axios";
@@ -211,6 +211,21 @@ function RoutineDetail({ isLogin, info }) {
 
   return (
     <Container>
+      <Row>
+        <Col lg="4">
+          <Link to="/list">
+            <img
+                alt="logo"
+                src="/left-arrow.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+          </Link>
+        </Col>
+        <Col lg="4"></Col>
+        <Col lg="4"></Col>
+      </Row>
       <Row xs lg="8" className="justify-content-center">
         <Col xs lg="4">
           {editInput ? (

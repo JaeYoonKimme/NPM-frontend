@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
+import * as ReactBootstrap from 'react-bootstrap';
+import { TextCenter } from "react-bootstrap-icons";
 
 
 function SlidingTitle({ rList, routines }){
@@ -26,9 +28,10 @@ function SlidingTitle({ rList, routines }){
 
     return (
     <>  
-        <div>
-            <Marquee direction="right" speed="50"  gradientWidth="0">
-                {titles.map((name)=>(<button onClick={()=>move(name)}>{name}</button>))}
+        <div style={{ height : "3rem"}}>
+            <Marquee direction="right" speed="30" gradientWidth="100">
+                {titles.map((name)=>(
+                <ReactBootstrap.Card border="info" style={{ width: '150%', margin:'0.5rem', textAlign: 'center' }} onClick={()=>move(name)}>{name}</ReactBootstrap.Card>))}
             </Marquee>
         </div>
     </>
