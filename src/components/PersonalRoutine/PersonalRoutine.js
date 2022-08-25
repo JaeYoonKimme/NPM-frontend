@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
-  Col,
   ProgressBar,
   Button,
   Badge,
+  Modal,
 } from "react-bootstrap";
 import axios from "axios";
 import Lottie from "react-lottie";
+import Congratulation from "../Congratulation/Congratulation";
+
 
 function PersonalRoutine({
   info,
@@ -18,6 +20,9 @@ function PersonalRoutine({
   isShow,
   animationData,
 }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleClose = () => setModalIsOpen(false);
+  const handleShow = () => setModalIsOpen(true);
   const id = userRoutine.id;
   const user_id = userRoutine.user_id;
   const routine_id = userRoutine.routine_id;
@@ -51,6 +56,10 @@ function PersonalRoutine({
     );
     setNowCount(nowCount + 1);
     setIsButtonShow(false);
+    if( (nowCount+1)===max_count) 
+    { 
+      setModalIsOpen(true)
+    };
   };
 
   useEffect(() => {
@@ -158,6 +167,16 @@ function PersonalRoutine({
               </Button>
             ))}
         </div>
+      <div >
+      <Modal show={modalIsOpen} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title> 완주를 축하합니다 !! </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Congratulation/>
+        </Modal.Body>
+      </Modal>
+      </div>
       </Row>
     </Container>
   );
