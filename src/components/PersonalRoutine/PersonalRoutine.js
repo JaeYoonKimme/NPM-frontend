@@ -56,10 +56,8 @@ function PersonalRoutine({
     );
     setNowCount(nowCount + 1);
     setIsButtonShow(false);
-    if( (nowCount+1)===max_count) 
-    { 
-      setModalIsOpen(true)
-    };
+    if( (nowCount+1)===max_count)  setModalIsOpen(true);
+    else alert("성공에 가까워진 당신 멋져요! ( 목표달성은 하루에 한번만 가능해요 ) ")
   };
 
   useEffect(() => {
