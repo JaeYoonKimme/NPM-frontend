@@ -43,8 +43,10 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
   return (
     <Navbar variant="light" style={{ height: "7rem" }}>
       <Container>
-        <Col lg="4"></Col>
-        <Col lg="4">
+        <Col lg="2">
+          {/* <Button variant="outline-info" as={Link} to="/list">Routines</Button> */}
+        </Col>
+        <Col lg="8">
           <Nav className="justify-content-around">
             <Navbar.Brand href="/" style={{ fontWeight: 900 }}>
               <img
@@ -58,7 +60,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
             </Navbar.Brand>
           </Nav>
         </Col>
-        <Col lg="4">
+        <Col lg="2">
           <Nav className="justify-content-end">
             {isLogin ? (
               <NavDropdown
@@ -83,7 +85,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
               <GoogleLogin
                 clientId={client_id}
                 render={(renderProps) => (
-                  <Button variant="success" onClick={renderProps.onClick}>
+                  <Button variant="outline-info" onClick={renderProps.onClick}>
                     LOGIN
                   </Button>
                 )}
