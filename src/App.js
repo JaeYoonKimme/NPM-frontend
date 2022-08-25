@@ -5,6 +5,7 @@ import RoutineList from "./pages/RoutineList";
 import RoutineDetail from "./pages/RoutineDetail";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import { getUserInfo } from "./api/getUserInfo";
 
 function App() {
@@ -46,8 +47,13 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={<Landing/>}
+        />
+        <Route
+          path="/landing"
           element={<RoutineList isLogin={isLogin} info={info} />}
         />
+        
         <Route
           path="/detail/:id"
           element={<RoutineDetail isLogin={isLogin} info={info} />}
