@@ -15,7 +15,8 @@ export const postLoginToken = async token => {
 
         if (response.status !== 200) throw new Error("API SERVER DOES NOT WORK");
 
-        const headers = {"Authorization": response.data.access_token}
+        console.log(response.data.access_token)
+        const headers = {"Authorization": `Bearer ${response.data.access_token}`}
         const path2 = 'dj-rest-auth/user/';
         const response2 = await axios.get(`https://${API_URL}/${path2}`, {
             headers: headers
