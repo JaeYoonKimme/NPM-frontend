@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
+import Landing from "./pages/Landing";
 import RoutineList from "./pages/RoutineList";
 import RoutineDetail from "./pages/RoutineDetail";
 import Mypage from "./pages/Mypage";
@@ -46,6 +47,10 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={<Landing/>}
+        />
+        <Route
+          path="/list"
           element={<RoutineList isLogin={isLogin} info={info} />}
         />
         <Route

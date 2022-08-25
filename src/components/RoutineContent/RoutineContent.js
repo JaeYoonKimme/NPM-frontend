@@ -5,8 +5,6 @@ import {
   Button,
   Col,
   Row,
-  CardGroup,
-  ListGroup,
   Badge,
 } from "react-bootstrap";
 import { Person } from "react-bootstrap-icons";
