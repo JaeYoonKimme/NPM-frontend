@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import RoutineContent from "../components/RoutineContent/RoutineContent";
-import { postLoginToken } from "../api/postLoginToken";
 
-function Mypage({ isLogin, info }) {
+function Mypage({ isLogin, info, header }) {
   const navigate = useNavigate();
   if (!isLogin) navigate("/");
 
@@ -19,7 +18,7 @@ function Mypage({ isLogin, info }) {
           process.env.REACT_APP_API_URL +
           `/api/user_routine_list/${pk}`,
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => {

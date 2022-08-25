@@ -10,7 +10,6 @@ import {
 import axios from "axios";
 import Lottie from "react-lottie";
 import Congratulation from "../Congratulation/Congratulation";
-import { postLoginToken } from "../../api/postLoginToken";
 
 function PersonalRoutine({
   info,
@@ -19,6 +18,7 @@ function PersonalRoutine({
   end_date,
   isShow,
   animationData,
+  header,
 }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleClose = () => setModalIsOpen(false);
@@ -54,7 +54,7 @@ function PersonalRoutine({
         now_count: nowCount + 1,
       },
       {
-        headers: postLoginToken,
+        headers: header,
       }
     );
     setNowCount(nowCount + 1);

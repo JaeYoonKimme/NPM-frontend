@@ -15,9 +15,8 @@ import {
   Badge,
   ToggleButton,
 } from "react-bootstrap";
-import { postLoginToken } from "../api/postLoginToken";
 
-function RoutineList({ isLogin, info }) {
+function RoutineList({ isLogin, info, header }) {
   const [routines, setRoutines] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleClose = () => setModalIsOpen(false);
@@ -39,7 +38,7 @@ function RoutineList({ isLogin, info }) {
           },
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => {

@@ -13,7 +13,6 @@ import {
   Toast,
 } from "react-bootstrap";
 import createMaxCount from "./CreateMaxCount.js";
-import { postLoginToken } from "../../api/postLoginToken";
 
 export const Convert = (date, delimiter = "-") => {
   const leftPad = (value) => {
@@ -30,7 +29,7 @@ export const Convert = (date, delimiter = "-") => {
   return [year, month, day].join(delimiter);
 };
 
-function RoutineCreate({ info, setModalIsOpen }) {
+function RoutineCreate({ info, setModalIsOpen, header }) {
   const [title, setTitle] = useState("");
   const [maxPeople, setMaxPeople] = useState("");
   const [description, setDescription] = useState("");
@@ -95,7 +94,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
             status: "ready",
           },
           {
-            headers: postLoginToken,
+            headers: header,
           }
         )
         .then((res) => {
@@ -111,7 +110,7 @@ function RoutineCreate({ info, setModalIsOpen }) {
               username: info.username,
             },
             {
-              headers: postLoginToken,
+              headers: header,
             }
           );
           alert("목표 생성이 완료되었습니다!");

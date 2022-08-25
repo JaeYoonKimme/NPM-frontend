@@ -15,9 +15,8 @@ import {
   Trash3,
   BoxArrowRight,
 } from "react-bootstrap-icons";
-import { postLoginToken } from "../api/postLoginToken";
 
-function RoutineDetail({ isLogin, info }) {
+function RoutineDetail({ isLogin, info, header }) {
   const [isEnterShow, setIsEnterShow] = useState(false);
   const [isDeleteShow, setIsDeleteShow] = useState(false);
   const [isEditShow, setIsEditShow] = useState(false);
@@ -55,7 +54,7 @@ function RoutineDetail({ isLogin, info }) {
           },
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => {
@@ -70,7 +69,7 @@ function RoutineDetail({ isLogin, info }) {
           status: "completed",
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       );
     }
@@ -87,7 +86,7 @@ function RoutineDetail({ isLogin, info }) {
           },
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => {
@@ -139,7 +138,7 @@ function RoutineDetail({ isLogin, info }) {
           username: info.username,
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => {
@@ -162,7 +161,7 @@ function RoutineDetail({ isLogin, info }) {
           now_people_number: now_people_number + 1,
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => console.log(res))
@@ -178,7 +177,7 @@ function RoutineDetail({ isLogin, info }) {
           status: "deleted",
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then(() => {
@@ -204,7 +203,7 @@ function RoutineDetail({ isLogin, info }) {
           description: editDes,
         },
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then(() => {
@@ -245,7 +244,7 @@ function RoutineDetail({ isLogin, info }) {
           process.env.REACT_APP_API_URL +
           `/api/user_routine_delete/${id}/${info.pk}`,
         {
-          headers: postLoginToken,
+          headers: header,
         }
       )
       .then((res) => {
@@ -452,6 +451,7 @@ function RoutineDetail({ isLogin, info }) {
           end_date={end_date}
           isShow={!isEnd}
           animationData={animationData}
+          header={header}
         />
       ) : (
         <div
@@ -498,6 +498,7 @@ function RoutineDetail({ isLogin, info }) {
               end_date={end_date}
               isShow={2}
               animationData={otherAnimationData}
+              header={header}
             />
           );
         }

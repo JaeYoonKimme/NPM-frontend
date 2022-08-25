@@ -13,14 +13,16 @@ import { postLoginToken } from "../../api/postLoginToken";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import { getUserInfo } from "../../api/getUserInfo";
-function Header({ isLogin, setIsLogin, info, setInfo }) {
+
+function Header({ isLogin, setIsLogin, info, setInfo, header, setHeader }) {
   const client_id = process.env.REACT_APP_CLIENT_ID;
   const navigate = useNavigate();
 
   const onGoogleSignIn = async (res) => {
     const result = await postLoginToken(res.accessToken, setIsLogin);
-    setIsLogin(result);
-    const newinfo = await getUserInfo();
+    setIsLogin(true);
+    setHeader(result);
+    const newinfo = await getUserInfo(header);
     setInfo(newinfo);
   };
 
@@ -35,7 +37,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
   }, []);
 
   const onClick = () => {
-    setIsLogin(!getLogout(setInfo));
+    setIsLogin(!getLogout(setInfo, header));
     alert("로그아웃 되었습니다.");
     navigate("/");
   };

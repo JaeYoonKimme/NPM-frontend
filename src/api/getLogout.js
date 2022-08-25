@@ -2,31 +2,32 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-export const getLogout = async ({setInfo}) => {
-    const API_URL = process.env.REACT_APP_API_URL;
-    const path = 'dj-rest-auth/logout/';
-  
-    try {
-        const response = await axios.get(`https://${API_URL}/${path}`, {
-            headers: {
-                "Content-Type": "application/json"
-            },
-        },
-        {withCredentials: true});
+export const getLogout = async ({ setInfo, header }) => {
+  const API_URL = process.env.REACT_APP_API_URL;
+  const path = "dj-rest-auth/logout/";
 
-        if (response.status !== 200) throw new Error('Not Logined');
+  try {
+    const response = await axios.get(
+      `https://${API_URL}/${path}`,
+      {
+        headers: header,
+      },
+      { withCredentials: true }
+    );
 
-        setInfo({
-            pk: '',
-            username: '',
-            email: '',
-            first_name: '',
-            last_name: '',
-            profile_url: '',
-          });
-        return true;
-    } catch (e) {
-      console.error('getLogout Error: ', e.message);
-      return false;
-    }
-  };
+    if (response.status !== 200) throw new Error("Not Logined");
+
+    setInfo({
+      pk: "",
+      username: "",
+      email: "",
+      first_name: "",
+      last_name: "",
+      profile_url: "",
+    });
+    return true;
+  } catch (e) {
+    console.error("getLogout Error: ", e.message);
+    return false;
+  }
+};
