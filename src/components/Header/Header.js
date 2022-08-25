@@ -41,12 +41,12 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
   };
 
   return (
-    <Navbar variant="light" style={{ height: "5rem" }}>
+    <Navbar variant="light" style={{ height: "7rem" }}>
       <Container>
         <Col lg="4"></Col>
         <Col lg="4">
           <Nav className="justify-content-around">
-            <Navbar.Brand href="/" style={{ fontWeight: "bold" }}>
+            <Navbar.Brand href="/" style={{ fontWeight: 900 }}>
               <img
                 alt="logo"
                 src="/logo.png"
@@ -54,7 +54,7 @@ function Header({ isLogin, setIsLogin, info, setInfo }) {
                 height="30"
                 className="d-inline-block align-top"
               />{" "}
-              Erooming
+              EROOMING
             </Navbar.Brand>
           </Nav>
         </Col>
