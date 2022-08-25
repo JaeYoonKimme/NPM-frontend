@@ -8,6 +8,9 @@ body {
   background-image: url(/Users/groo/Desktop/NPM-frontend/public/pattern.png)!important;
   background-repeat: no-repeat;
   background-size: cover;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 code {
