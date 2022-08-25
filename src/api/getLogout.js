@@ -1,6 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
+axios.defaults.crossDomain = true;
 
 document.cookie = 'same-site-cookie=foo; SameSite=Lax';
 document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
