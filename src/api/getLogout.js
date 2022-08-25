@@ -7,7 +7,7 @@ export const getLogout = async ({setInfo}) => {
     const path = 'dj-rest-auth/logout/';
   
     try {
-        const response = await axios.get(`http://${API_URL}/${path}`, {
+        const response = await axios.get(`https://${API_URL}/${path}`, {
             headers: {
                 "Content-Type": "application/json"
             },

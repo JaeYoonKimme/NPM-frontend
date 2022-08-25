@@ -15,6 +15,7 @@ import {
   Trash3,
   BoxArrowRight,
 } from "react-bootstrap-icons";
+import { postLoginToken } from "../api/postLoginToken";
 
 function RoutineDetail({ isLogin, info }) {
   const [isEnterShow, setIsEnterShow] = useState(false);
@@ -46,31 +47,49 @@ function RoutineDetail({ isLogin, info }) {
 
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_API_URL}/api/all_user_routines/`, {
-        params: {
-          routine_id: id,
+      .get(
+        `https://${process.env.REACT_APP_API_URL}/api/all_user_routines/`,
+        {
+          params: {
+            routine_id: id,
+          },
         },
-      })
+        {
+          headers: postLoginToken,
+        }
+      )
       .then((res) => {
         setRoutines([...res.data]);
       })
       .catch((err) => console.log(err));
     if (dDay < 0) {
       setIsEnd(true);
-      axios.patch(`http://${process.env.REACT_APP_API_URL}/api/routine/${id}`, {
-        status: "completed",
-      });
+      axios.patch(
+        `https://${process.env.REACT_APP_API_URL}/api/routine/${id}`,
+        {
+          status: "completed",
+        },
+        {
+          headers: postLoginToken,
+        }
+      );
     }
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
-        params: {
-          user_id: info.pk,
-          routine_id: id,
+      .get(
+        "https://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+        {
+          params: {
+            user_id: info.pk,
+            routine_id: id,
+          },
         },
-      })
+        {
+          headers: postLoginToken,
+        }
+      )
       .then((res) => {
         console.log(res.data);
         if (isLogin) {
@@ -108,15 +127,21 @@ function RoutineDetail({ isLogin, info }) {
   const onClickEnter = () => {
     // POST user_routine data
     axios
-      .post("http://" + process.env.REACT_APP_API_URL + "/api/user_routine/", {
-        user_id: info.pk,
-        routine_id: id,
-        now_count: 0,
-        max_count: max_count,
-        is_host: "false",
-        profile_url: info.profile_url,
-        username: info.username,
-      })
+      .post(
+        "https://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+        {
+          user_id: info.pk,
+          routine_id: id,
+          now_count: 0,
+          max_count: max_count,
+          is_host: "false",
+          profile_url: info.profile_url,
+          username: info.username,
+        },
+        {
+          headers: postLoginToken,
+        }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -131,9 +156,15 @@ function RoutineDetail({ isLogin, info }) {
 
     // PATCH routine data (now_people_number)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
-        now_people_number: now_people_number + 1,
-      })
+      .patch(
+        "https://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`,
+        {
+          now_people_number: now_people_number + 1,
+        },
+        {
+          headers: postLoginToken,
+        }
+      )
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -141,9 +172,15 @@ function RoutineDetail({ isLogin, info }) {
   const onClickDelete = () => {
     // PATCH routine data (status)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
-        status: "deleted",
-      })
+      .patch(
+        "https://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`,
+        {
+          status: "deleted",
+        },
+        {
+          headers: postLoginToken,
+        }
+      )
       .then(() => {
         alert("삭제되었습니다.");
         navigate("/");
@@ -160,10 +197,16 @@ function RoutineDetail({ isLogin, info }) {
   const onClickComplete = () => {
     // PATCH routine data (title, description)
     axios
-      .patch("http://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`, {
-        title: editTitle,
-        description: editDes,
-      })
+      .patch(
+        "https://" + process.env.REACT_APP_API_URL + `/api/routine/${id}`,
+        {
+          title: editTitle,
+          description: editDes,
+        },
+        {
+          headers: postLoginToken,
+        }
+      )
       .then(() => {
         alert("저장되었습니다.");
         // 변경사항 저장한 뒤 새로고침
@@ -198,9 +241,12 @@ function RoutineDetail({ isLogin, info }) {
   const onClickComeOut = () => {
     axios
       .delete(
-        "http://" +
+        "https://" +
           process.env.REACT_APP_API_URL +
-          `/api/user_routine_delete/${id}/${info.pk}`
+          `/api/user_routine_delete/${id}/${info.pk}`,
+        {
+          headers: postLoginToken,
+        }
       )
       .then((res) => {
         console.log(res);

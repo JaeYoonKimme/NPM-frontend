@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import Lottie from "react-lottie";
 import Congratulation from "../Congratulation/Congratulation";
-
+import { postLoginToken } from "../../api/postLoginToken";
 
 function PersonalRoutine({
   info,
@@ -49,17 +49,19 @@ function PersonalRoutine({
 
   const onClick = () => {
     axios.patch(
-      `http://${process.env.REACT_APP_API_URL}/api/user_routine/${userRoutine.id}`,
+      `https://${process.env.REACT_APP_API_URL}/api/user_routine/${userRoutine.id}`,
       {
         now_count: nowCount + 1,
+      },
+      {
+        headers: postLoginToken,
       }
     );
     setNowCount(nowCount + 1);
     setIsButtonShow(false);
-    if( (nowCount+1)===max_count) 
-    { 
-      setModalIsOpen(true)
-    };
+    if (nowCount + 1 === max_count) {
+      setModalIsOpen(true);
+    }
   };
 
   useEffect(() => {
@@ -119,7 +121,11 @@ function PersonalRoutine({
               />
               <div style={{ margin: "0.5rem auto 0", textAlign: "center" }}>
                 {username}
-                {is_host && <div><Badge bg="danger">방장</Badge></div>}
+                {is_host && (
+                  <div>
+                    <Badge bg="danger">방장</Badge>
+                  </div>
+                )}
               </div>
             </div>
             <div
@@ -143,9 +149,9 @@ function PersonalRoutine({
               </div>
             </div>
             <div style={{ width: "4rem", margin: "3rem 0 3rem 2rem" }}>
-                <div>
+              <div>
                 {nowCount} / {max_count}
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -167,16 +173,16 @@ function PersonalRoutine({
               </Button>
             ))}
         </div>
-      <div >
-      <Modal show={modalIsOpen} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title> 완주를 축하합니다 !! </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Congratulation/>
-        </Modal.Body>
-      </Modal>
-      </div>
+        <div>
+          <Modal show={modalIsOpen} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title> 완주를 축하합니다 !! </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Congratulation />
+            </Modal.Body>
+          </Modal>
+        </div>
       </Row>
     </Container>
   );

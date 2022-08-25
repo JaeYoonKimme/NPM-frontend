@@ -13,8 +13,9 @@ import {
   Container,
   ButtonGroup,
   Badge,
-  ToggleButton
+  ToggleButton,
 } from "react-bootstrap";
+import { postLoginToken } from "../api/postLoginToken";
 
 function RoutineList({ isLogin, info }) {
   const [routines, setRoutines] = useState([]);
@@ -30,11 +31,17 @@ function RoutineList({ isLogin, info }) {
 
   useEffect(() => {
     axios
-      .get("http://" + process.env.REACT_APP_API_URL + "/api/routine/", {
-        params: {
-          status: "ready active",
+      .get(
+        "https://" + process.env.REACT_APP_API_URL + "/api/routine/",
+        {
+          params: {
+            status: "ready active",
+          },
         },
-      })
+        {
+          headers: postLoginToken,
+        }
+      )
       .then((res) => {
         setRoutines([...res.data]);
       })
@@ -44,7 +51,7 @@ function RoutineList({ isLogin, info }) {
   return (
     <Container style={{ width: "50rem" }}>
       <Row>
-        <Col xs lg="3" style={{margin: '1.5rem 0'}}>
+        <Col xs lg="3" style={{ margin: "1.5rem 0" }}>
           <ButtonGroup>
             {radios.map((radio, idx) => (
               <ToggleButton
@@ -62,41 +69,53 @@ function RoutineList({ isLogin, info }) {
             ))}
           </ButtonGroup>
         </Col>
-        <Col xs lg="6"/>
-        <Col xs lg="3" style={{ display:'flex', justifyContent: 'end', margin: '1.5rem 0'}}>
+        <Col xs lg="6" />
+        <Col
+          xs
+          lg="3"
+          style={{ display: "flex", justifyContent: "end", margin: "1.5rem 0" }}
+        >
           {isLogin && (
             <Button variant="success" onClick={() => setModalIsOpen(true)}>
               목표 만들기
             </Button>
           )}
         </Col>
-      <Modal show={modalIsOpen} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>목표 생성하기</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <RoutineCreate setModalIsOpen={setModalIsOpen} info={info} />
-        </Modal.Body>
-      </Modal>
-      <Container>
-        {radioValue === "1" ? (
-          <Row xs={1} md={2} className="g-4">
-            {routines.map((routine, idx) => {
-              if (routine.status === "ready") {
-                return <Col><RoutineContent key={idx} routine={routine} /></Col>;
-              }
-            })}
-          </Row>
-        ) : (
-          <Row xs={1} md={2} className="g-4">
-            {routines.map((routine, idx) => {
-              if (routine.status === "active") {
-                return <Col><RoutineContent key={idx} routine={routine} /></Col>;
-              }
-            })}
-          </Row>
-        )}
-      </Container>
+        <Modal show={modalIsOpen} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>목표 생성하기</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <RoutineCreate setModalIsOpen={setModalIsOpen} info={info} />
+          </Modal.Body>
+        </Modal>
+        <Container>
+          {radioValue === "1" ? (
+            <Row xs={1} md={2} className="g-4">
+              {routines.map((routine, idx) => {
+                if (routine.status === "ready") {
+                  return (
+                    <Col>
+                      <RoutineContent key={idx} routine={routine} />
+                    </Col>
+                  );
+                }
+              })}
+            </Row>
+          ) : (
+            <Row xs={1} md={2} className="g-4">
+              {routines.map((routine, idx) => {
+                if (routine.status === "active") {
+                  return (
+                    <Col>
+                      <RoutineContent key={idx} routine={routine} />
+                    </Col>
+                  );
+                }
+              })}
+            </Row>
+          )}
+        </Container>
       </Row>
     </Container>
   );

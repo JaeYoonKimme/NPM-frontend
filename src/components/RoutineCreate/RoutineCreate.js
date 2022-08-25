@@ -13,6 +13,7 @@ import {
   Toast,
 } from "react-bootstrap";
 import createMaxCount from "./CreateMaxCount.js";
+import { postLoginToken } from "../../api/postLoginToken";
 
 export const Convert = (date, delimiter = "-") => {
   const leftPad = (value) => {
@@ -81,19 +82,25 @@ function RoutineCreate({ info, setModalIsOpen }) {
       alert("날짜를 확인해주세요.");
     } else {
       axios
-        .post("http://" + process.env.REACT_APP_API_URL + "/api/routine/", {
-          title: title,
-          max_people_number: maxPeople,
-          now_people_number: 1,
-          description: description,
-          start_date: Convert(startDate),
-          end_date: Convert(endDate),
-          max_count: createMaxCount(Convert(startDate), Convert(endDate)),
-          status: "ready",
-        })
+        .post(
+          "https://" + process.env.REACT_APP_API_URL + "/api/routine/",
+          {
+            title: title,
+            max_people_number: maxPeople,
+            now_people_number: 1,
+            description: description,
+            start_date: Convert(startDate),
+            end_date: Convert(endDate),
+            max_count: createMaxCount(Convert(startDate), Convert(endDate)),
+            status: "ready",
+          },
+          {
+            headers: postLoginToken,
+          }
+        )
         .then((res) => {
           axios.post(
-            "http://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
+            "https://" + process.env.REACT_APP_API_URL + "/api/user_routine/",
             {
               user_id: info.pk,
               routine_id: res.data.id,
@@ -102,6 +109,9 @@ function RoutineCreate({ info, setModalIsOpen }) {
               is_host: "true",
               profile_url: info.profile_url,
               username: info.username,
+            },
+            {
+              headers: postLoginToken,
             }
           );
           alert("목표 생성이 완료되었습니다!");

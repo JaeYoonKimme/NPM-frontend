@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import RoutineContent from "../components/RoutineContent/RoutineContent";
+import { postLoginToken } from "../api/postLoginToken";
 
 function Mypage({ isLogin, info }) {
   const navigate = useNavigate();
@@ -14,10 +15,12 @@ function Mypage({ isLogin, info }) {
   useEffect(() => {
     axios
       .get(
-        "http://" +
+        "https://" +
           process.env.REACT_APP_API_URL +
           `/api/user_routine_list/${pk}`,
-        {}
+        {
+          headers: postLoginToken,
+        }
       )
       .then((res) => {
         setRoutines([...res.data]);
@@ -42,7 +45,11 @@ function Mypage({ isLogin, info }) {
                     routine.status === "active" ||
                     routine.status === "ready"
                   ) {
-                    return <Col><RoutineContent key={idx} routine={routine} /></Col>;
+                    return (
+                      <Col>
+                        <RoutineContent key={idx} routine={routine} />
+                      </Col>
+                    );
                   }
                 })}
               </Row>
@@ -53,7 +60,11 @@ function Mypage({ isLogin, info }) {
               <Row xs={1} md={2} className="g-4">
                 {routines.map((routine, idx) => {
                   if (routine.status === "completed") {
-                    return <Col><RoutineContent key={idx} routine={routine} /></Col>;
+                    return (
+                      <Col>
+                        <RoutineContent key={idx} routine={routine} />
+                      </Col>
+                    );
                   }
                 })}
               </Row>

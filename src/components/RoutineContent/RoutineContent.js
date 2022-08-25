@@ -1,12 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Card,
-  Button,
-  Col,
-  Row,
-  Badge,
-} from "react-bootstrap";
+import { Card, Button, Col, Row, Badge } from "react-bootstrap";
 import { Person } from "react-bootstrap-icons";
 
 function RoutineContent({ routine }) {
