@@ -13,6 +13,7 @@ body {
   width: 100%;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
 }
 
 code {
@@ -21,5 +22,5 @@ code {
 }
 
 *{
-  font-family : 'Cafe24SsurroundAir'
+  font-family : 'Cafe24SsurroundAir';
 }

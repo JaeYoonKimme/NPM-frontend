@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row, Button, Badge } from "react-bootstrap";
 import axios from "axios";
 import PersonalRoutine from "../components/PersonalRoutine/PersonalRoutine";
 import { Convert } from "../components/RoutineCreate/RoutineCreate";
@@ -74,11 +74,11 @@ function RoutineDetail({ isLogin, info }) {
       .then((res) => {
         console.log(res.data);
         if (isLogin) {
-          if (res.data != "") {
+          if (res.data !== "") {
             setUserRoutine(res.data);
           }
-          if (status == "ready") {
-            if (res.data == "") {
+          if (status === "ready") {
+            if (res.data === "") {
               if (now_people_number < max_people_number) {
                 setIsEnterShow(true);
               }
@@ -422,7 +422,20 @@ function RoutineDetail({ isLogin, info }) {
                 참가하기
               </Button>
             ) : (
-              <>진행중인 목표입니다.</>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Badge pill bg="danger" text="light">
+                  진행중
+                </Badge>
+                <div style={{ marginTop: "0.5rem" }}>
+                  참여가 불가한 목표입니다.
+                </div>
+              </div>
             )
           ) : (
             <>이 목표에 함께하려면 로그인 하세요!</>
