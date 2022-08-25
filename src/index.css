@@ -9,8 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url(/public/pattern.png)!important;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
-  width: 100%;
   justify-content: center;
   align-items: center;
   overflow-y: scroll;
