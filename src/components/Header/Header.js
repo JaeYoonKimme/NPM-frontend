@@ -5,7 +5,6 @@ import {
   Navbar,
   NavDropdown,
   Button,
-  Dropdown,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { getLogout } from "../../api/getLogout";
