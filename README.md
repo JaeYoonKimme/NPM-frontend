@@ -6,7 +6,7 @@
 Erooming은 개인 혹은 공동의 루틴을 설정하고 진행 상황을 관리하는 서비스입니다.
 
 ## ⚙️개발 도구
-<img src="https://img.shields.io/badge/JavaScript-grey?style=flat&logo=JavaScript&logoColor=F7DF1E"/> <img src="https://img.shields.io/badge/React-white?style=flat&logo=React&logoColor=61DAFB"/> <img src="https://img.shields.io/badge/Bootstrap-F8E0DC?style=flat&logo=Bootstrap&logoColor=7952B3"/> <img src="https://img.shields.io/badge/SQLite-ivory?style=flat&logo=SQLite&logoColor=003B57"/> <img src="https://img.shields.io/badge/Vercel-yellow?style=flat&logo=Vercel&logoColor=000000"/> <img src="https://img.shields.io/badge/Amazon EC2-blue?style=flat&logo=Amazon EC2&logoColor=FF9900"/>
+<img src="https://img.shields.io/badge/JavaScript-grey?style=flat&logo=JavaScript&logoColor=F7DF1E"/> <img src="https://img.shields.io/badge/React-white?style=flat&logo=React&logoColor=61DAFB"/> <img src="https://img.shields.io/badge/Bootstrap-F8E0DC?style=flat&logo=Bootstrap&logoColor=7952B3"/> <img src="https://img.shields.io/badge/Python-yellow?style=flat&logo=Python&logoColor=3776AB"/> <img src="https://img.shields.io/badge/Django-green?style=flat&logo=Django&logoColor=092E20"/> <img src="https://img.shields.io/badge/SQLite-ivory?style=flat&logo=SQLite&logoColor=003B57"/> <img src="https://img.shields.io/badge/Vercel-pink?style=flat&logo=Vercel&logoColor=000000"/> <img src="https://img.shields.io/badge/Amazon EC2-blue?style=flat&logo=Amazon EC2&logoColor=FF9900"/>
 
 ---
 
