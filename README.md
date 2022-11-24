@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Erooming
+루틴 관리 및 공유 웹사이트 
+ 
+ 
+## 🖥️프로젝트 소개
+Erooming은 개인 혹은 공동의 루틴을 설정하고 진행 상황을 관리하는 서비스입니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ⚙️개발 도구
+<img src="https://img.shields.io/badge/JavaScript-grey?style=flat&logo=JavaScript&logoColor=F7DF1E"/> <img src="https://img.shields.io/badge/React-white?style=flat&logo=React&logoColor=61DAFB"/> <img src="https://img.shields.io/badge/Bootstrap-F8E0DC?style=flat&logo=Bootstrap&logoColor=7952B3"/> <img src="https://img.shields.io/badge/SQLite-ivory?style=flat&logo=SQLite&logoColor=003B57"/> <img src="https://img.shields.io/badge/Vercel-yellow?style=flat&logo=Vercel&logoColor=000000"/> <img src="https://img.shields.io/badge/Amazon EC2-blue?style=flat&logo=Amazon EC2&logoColor=FF9900"/>
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+<p align="center">
 
-### `npm start`
+### 랜딩 페이지, 로그인
+<img src="https://user-images.githubusercontent.com/42732729/203835565-98efe8e1-aa6b-4d46-b9f5-9254d067e464.gif">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 루틴 생성
+<img src="https://user-images.githubusercontent.com/42732729/203836472-1f0a39d9-dd17-4fb5-b43e-f56f17b71f09.gif">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.!!!!!!
+### 루틴 참여, 나가기, 삭제 기능
+<img src="https://user-images.githubusercontent.com/42732729/203837011-0716137d-45cf-47d8-a651-5821f4caf045.gif">
 
-### `npm test`
+### 완주 시 이벤트
+<img src="https://user-images.githubusercontent.com/42732729/203837418-6541cbbb-df87-4633-a078-30dc8cc6ffd7.gif">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+</p>
